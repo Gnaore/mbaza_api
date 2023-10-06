@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `User` ALTER COLUMN `contact` DROP DEFAULT,
+    ALTER COLUMN `pays` DROP DEFAULT,
+    ALTER COLUMN `role` DROP DEFAULT;
