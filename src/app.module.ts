@@ -13,6 +13,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ProprieteModule } from './propriete/propriete.module';
 import { BienModule } from './bien/bien.module';
+import { WcallbackController } from './wcallback/wcallback.controller';
+import { WcallbackModule } from './wcallback/wcallback.module';
 
 @Module({
   imports: [
@@ -31,7 +33,8 @@ import { BienModule } from './bien/bien.module';
     }),
     ProprieteModule,
     BienModule,
+    WcallbackModule,
   ],
-  controllers: [],
+  controllers: [WcallbackController],
 })
 export class AppModule {}
