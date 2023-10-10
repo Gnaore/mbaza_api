@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prismaserv/prisma.service';
 import { ModifProprieteDto } from './Dto/modifProprieteDto';
 import { AjoutProprieteDto } from './Dto/ajoutProprieteDto';
 import * as speakeasy from 'speakeasy';

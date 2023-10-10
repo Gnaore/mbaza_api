@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AjoutBailleurDto } from './Dto/ajoutBailleurDto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prismaserv/prisma.service';
 import { ModifBailleurDto } from './Dto/modifBailleurDto';
 
 @Injectable()
