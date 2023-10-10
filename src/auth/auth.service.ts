@@ -4,7 +4,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prismaserv/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from 'src/mailer/mailer.service';
 import { JwtService } from '@nestjs/jwt';
@@ -92,6 +92,7 @@ export class AuthService {
       user: {
         username: user.username,
         useremail: user.email,
+        userrole: user.role
       },
     };
   }

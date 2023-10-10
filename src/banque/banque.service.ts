@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AjoutBanqueDto } from './Dto/ajoutBanqueDto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prismaserv/prisma.service';
 import * as speakeasy from 'speakeasy';
 import { ConfigService } from '@nestjs/config';
 

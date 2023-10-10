@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prismaserv/prisma.service';
 import { AjoutBienDto } from './Dto/ajoutBienDto';
 import * as speakeasy from 'speakeasy';
 import { ConfigService } from '@nestjs/config';
