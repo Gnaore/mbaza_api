@@ -15,6 +15,7 @@ import { ProprieteModule } from './propriete/propriete.module';
 import { BienModule } from './bien/bien.module';
 import { WcallbackController } from './wcallback/wcallback.controller';
 import { WcallbackModule } from './wcallback/wcallback.module';
+import { LocataireModule } from './locataire/locataire.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { WcallbackModule } from './wcallback/wcallback.module';
     ProprieteModule,
     BienModule,
     WcallbackModule,
+    LocataireModule,
   ],
   controllers: [WcallbackController],
 })
