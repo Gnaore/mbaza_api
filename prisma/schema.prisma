@@ -56,38 +56,40 @@ model Bailleur {
   bailleurRelationUrgence String?     @db.VarChar(255)
   bailleurlienCNI         String      @db.Text
   bailleurLienPhoto       String      @db.Text
-  Proprietes              Propriete[] @relation("bailleur_proprietes")
+  proprietes              Propriete[] @relation("bailleur_proprietes")
+  locataires              Locataire[] @relation("bailleur_locataires")
 }
 
 model Propriete {
-  proprieteId                Int      @id @default(autoincrement())
-  proprieteCode              String   @db.VarChar(65)
-  proprieteAdresse           String   @db.Text
-  proprieteAnnee             Int      @db.Year
-  proprieteSurface           Float?   @default(0) @db.Double
-  proprieteNbrEtage          Int?     @default(0)
-  proprieteNbrChambre        Int?     @default(0)
-  proprieteNbreSalleBain     Int?     @default(0)
-  proprieteDescription       String?  @db.Text
-  proprieteStatu             String   @db.VarChar(65)
+  proprieteId                Int        @id @default(autoincrement())
+  proprieteCode              String     @unique @db.VarChar(65)
+  proprieteAdresse           String     @db.Text
+  proprieteAnnee             Int        @db.Year
+  proprieteSurface           Float?     @default(0) @db.Double
+  proprieteNbrEtage          Int?       @default(0)
+  proprieteNbrChambre        Int?       @default(0)
+  proprieteNbreSalleBain     Int?       @default(0)
+  proprieteDescription       String?    @db.Text
+  proprieteStatu             String     @db.VarChar(65)
   proprietePrix              Float
-  proprietePret              Float?   @default(0)
-  proprieteJardin            Boolean? @default(false)
-  proprietePiscine           Boolean? @default(false)
-  proprieteGarage            Boolean? @default(false)
-  proprieteBalcon            Boolean? @default(false)
-  proprieteChemine           Boolean? @default(false)
-  proprieteClimatisation     Boolean? @default(false)
-  proprieteEquipement        Boolean? @default(false)
-  proprieteequipementdetails String?  @db.Text
-  proprieteLongitude         Float?   @default(0)
-  proprieteLatitude          Float?   @default(0)
-  proprieteQuartier          String?  @db.Text
-  proprieteLienPhoto         String   @db.Text
+  proprietePret              Float?     @default(0)
+  proprieteJardin            Boolean?   @default(false)
+  proprietePiscine           Boolean?   @default(false)
+  proprieteGarage            Boolean?   @default(false)
+  proprieteBalcon            Boolean?   @default(false)
+  proprieteChemine           Boolean?   @default(false)
+  proprieteClimatisation     Boolean?   @default(false)
+  proprieteEquipement        Boolean?   @default(false)
+  proprieteequipementdetails String?    @db.Text
+  proprieteLongitude         Float?     @default(0)
+  proprieteLatitude          Float?     @default(0)
+  proprieteQuartier          String?    @db.Text
+  proprieteLienPhoto         String     @db.Text
   bailleurId                 Int
-  bailleur                   Bailleur @relation("bailleur_proprietes", fields: [bailleurId], references: [bailleurId], onDelete: Cascade, onUpdate: Cascade)
+  bailleur                   Bailleur   @relation("bailleur_proprietes", fields: [bailleurId], references: [bailleurId], onDelete: Cascade, onUpdate: Cascade)
   typebienId                 Int
-  typebien                   Typebien @relation("typebien_proprietes", fields: [typebienId], references: [typebienId], onDelete: Cascade, onUpdate: Cascade)
+  typebien                   Typebien   @relation("typebien_proprietes", fields: [typebienId], references: [typebienId], onDelete: Cascade, onUpdate: Cascade)
+  locataire                  Locataire?
 }
 
 model Typebien {
@@ -123,4 +125,28 @@ model Bien {
   bienReference       String   @db.VarChar(65)
   typebienId          Int
   typebien            Typebien @relation("typebien_biens", fields: [typebienId], references: [typebienId], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Locataire {
+  locataireId             Int       @id @default(autoincrement())
+  locataireRef            String    @db.VarChar(65)
+  locataireNom            String    @db.VarChar(255)
+  locataireDatenais       DateTime  @db.Date
+  locataireNationalite    String    @db.VarChar(65)
+  locataireTel            String    @db.VarChar(65)
+  locataireEmail          String    @db.VarChar(255)
+  locataireSituationmatri String    @db.VarChar(255)
+  locataireNbrecharge     Int?      @default(0)
+  locataireTypecontrat    String?   @db.VarChar(65)
+  locataireProfession     String?   @db.VarChar(255)
+  locataireSalaire        Int?      @default(0)
+  locataireBanque         String?   @db.VarChar(65)
+  locataireNomgarant      String?   @db.VarChar(255)
+  locataireTelgarant      String?   @db.VarChar(255)
+  locataireEmailgarant    String?   @db.VarChar(255)
+  locatairePhoto          String?   @db.VarChar(255)
+  proprieteCode           String    @unique
+  propriete               Propriete @relation(fields: [proprieteCode], references: [proprieteCode])
+  bailleurId              Int
+  bailleur                Bailleur  @relation("bailleur_locataires", fields: [bailleurId], references: [bailleurId], onDelete: Cascade, onUpdate: Cascade)
 }
