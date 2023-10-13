@@ -1,5 +1,6 @@
+import { TimestampEntities } from "src/generics/timestampEmtities";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { TimestampEntities } from "../generics/timestampEmtities";
+
 
 @Entity('User')
 export class UserEntity extends TimestampEntities {
