@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { AjoutBanqueDto } from './Dto/ajoutBanqueDto';
-import { PrismaService } from 'src/prismaserv/prisma.service';
 import * as speakeasy from 'speakeasy';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class BanqueService {
-  constructor(
+ /* constructor(
     private readonly prismaService: PrismaService,
     private readonly configService: ConfigService,
   ) {}
@@ -72,5 +71,5 @@ export class BanqueService {
       where: { banqueId },
     });
     return { data: ret };
-  }
+  }*/
 }

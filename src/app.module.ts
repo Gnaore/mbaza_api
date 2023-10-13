@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
-import { PrismaModule } from './prismaserv/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from './mailer/mailer.module';
 import { BanqueModule } from './banque/banque.module';
@@ -16,13 +15,27 @@ import { BienModule } from './bien/bien.module';
 import { WcallbackController } from './wcallback/wcallback.controller';
 import { WcallbackModule } from './wcallback/wcallback.module';
 import { LocataireModule } from './locataire/locataire.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      autoLoadEntities: true,
+      entities: ["dist/**/*.entity{.ts,.js}"],
+      synchronize: true,
+    }),
     ConfigModule.forRoot({ isGlobal: true }), //Pour utiliser les variables d'environnement
     AuthModule,
     BanqueModule,
-    PrismaModule, //ORM
     MailerModule,
     BailleurModule,
     TypebienModule,

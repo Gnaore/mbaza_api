@@ -15,6 +15,11 @@ export class AjoutLocataireDto {
   readonly locataireEmail: string;
   @IsNotEmpty()
   readonly locataireSituationmatri: string;
+  @IsNotEmpty()
+  readonly proprieteCode: string;
+  @IsNotEmpty()
+  readonly bailleurId: number;
+  
   readonly locataireNbrecharge: number;
   readonly locataireTypecontrat: string;
   readonly locataireProfession: string;
@@ -24,6 +29,5 @@ export class AjoutLocataireDto {
   readonly locataireTelgarant: string;
   readonly locataireEmailgarant: string;
   readonly locatairePhoto: string;
-  readonly proprieteCode: string;
-  readonly bailleurId: number;
+
 }

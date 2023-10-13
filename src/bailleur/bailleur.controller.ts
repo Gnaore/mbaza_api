@@ -24,7 +24,7 @@ export class BailleurController {
   @Get('all')
   getAll(@Req() request: Request) {
     const userId = request.user['userId'];
-    return this.bailleurService.getAll();
+    //return this.bailleurService.getAll();
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -34,7 +34,7 @@ export class BailleurController {
     @Req() request: Request,
   ) {
     const userId = request.user['userId'];
-    return this.bailleurService.getOne(userId, bailleurId);
+    //return this.bailleurService.getOne(userId, bailleurId);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -44,7 +44,7 @@ export class BailleurController {
     @Body() ajoutBailleurDto: AjoutBailleurDto,
   ) {
     const userId = request.user['userId'];
-    return this.bailleurService.ajouteBailleur(userId, ajoutBailleurDto);
+    //return this.bailleurService.ajouteBailleur(userId, ajoutBailleurDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -54,7 +54,7 @@ export class BailleurController {
     @Body() modifBailleurDto: ModifBailleurDto,
   ) {
     const userId = request.user['userId'];
-    return this.bailleurService.modifiBailleur(userId, modifBailleurDto);
+    //return this.bailleurService.modifiBailleur(userId, modifBailleurDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -64,6 +64,6 @@ export class BailleurController {
     @Param('id', ParseIntPipe) bailleurId: number,
   ) {
     const userId = request.user['userId'];
-    return this.bailleurService.supone(userId, bailleurId);
+    //return this.bailleurService.supone(userId, bailleurId);
   }
 }

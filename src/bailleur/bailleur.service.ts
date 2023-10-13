@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { AjoutBailleurDto } from './Dto/ajoutBailleurDto';
-import { PrismaService } from 'src/prismaserv/prisma.service';
 import { ModifBailleurDto } from './Dto/modifBailleurDto';
 
 @Injectable()
 export class BailleurService {
-  constructor(private readonly prismaService: PrismaService) {}
+ /* constructor(private readonly prismaService: PrismaService) {}
 
   async getAll() {
     const ret = await this.prismaService.bailleur.findMany({
       include: {
-        Proprietes: {},
+        proprietes: {},
       },
       orderBy: [{ bailleurNomPrenoms: 'asc' }],
     });
@@ -26,6 +25,8 @@ export class BailleurService {
             pays: {},
           },
         },
+        proprietes: {},
+        locataires: {},
       },
     });
     return { data: ret };
@@ -121,5 +122,5 @@ export class BailleurService {
       },
     });
     return { data: ret };
-  }
+  }*/
 }

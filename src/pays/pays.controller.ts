@@ -23,14 +23,14 @@ export class PaysController {
     @Get('all')
     getAll(@Req() request: Request) {
       const userId = request.user['userId'];
-      return this.paysService.getAll();
+      //return this.paysService.getAll();
     }
   
     @UseGuards(AuthGuard('jwt'))
     @Get('/:id')
     getOne(@Param('id', ParseIntPipe) paysId: number, @Req() request: Request) {
       const userId = request.user['userId'];
-      return this.paysService.getOne(userId, paysId);
+      //return this.paysService.getOne(userId, paysId);
     }
   
     @UseGuards(AuthGuard('jwt'))
@@ -40,7 +40,7 @@ export class PaysController {
       @Body() ajoutPaysDto: AjoutPaysDto,
     ) {
       const userId = request.user['userId'];
-      return this.paysService.ajoutePays(userId, ajoutPaysDto);
+      //return this.paysService.ajoutePays(userId, ajoutPaysDto);
     }
   
     @UseGuards(AuthGuard('jwt'))
@@ -50,14 +50,14 @@ export class PaysController {
       @Body() ajoutPaysDto: AjoutPaysDto,
     ) {
       const userId = request.user['userId'];
-      return this.paysService.modifiPays(userId, ajoutPaysDto);
+      //return this.paysService.modifiPays(userId, ajoutPaysDto);
     }
   
     @UseGuards(AuthGuard('jwt'))
     @Delete('sup/:id')
     delete(@Req() request: Request, @Param('id', ParseIntPipe) paysId: number) {
       const userId = request.user['userId'];
-      return this.paysService.supone(userId, paysId);
+      //return this.paysService.supone(userId, paysId);
     }
   }
   

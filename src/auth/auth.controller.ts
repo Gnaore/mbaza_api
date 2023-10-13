@@ -27,38 +27,36 @@ export class AuthController {
 
   @Get('allusers')
   async getAllUsers() {
-    return this.authService.getAllUsers();
+    //return this.authService.getAllUsers();
   }
 
   @Post('signup')
   signup(@Body() signupDto: SignupDto) {
-    return this.authService.signup(signupDto);
+    //return this.authService.signup(signupDto);
   }
 
   @Post('signin')
   signin(@Body() signinDto: SigninDto) {
-    return this.authService.signin(signinDto);
+    //return this.authService.signin(signinDto);
   }
 
   @Post('reset-password')
   resetPasswordDemand(@Body() resetPasswordDemandDto: ResetPasswordDemandDto) {
-    return this.authService.resetPasswordDemand(resetPasswordDemandDto);
+    //return this.authService.resetPasswordDemand(resetPasswordDemandDto);
   }
 
   @Post('reset-password-confirmation')
   resetPasswordConfirmation(
     @Body() resetPasswordConfirmationDto: ResetPasswordConfirmationDto,
   ) {
-    return this.authService.resetPasswordConfirmation(
-      resetPasswordConfirmationDto,
-    );
+    //return this.authService.resetPasswordConfirmation(resetPasswordConfirmationDto,);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('delete')
   delete(@Req() request: Request, @Body() deleteAccountDto: DeleteAccountDto) {
     const userId = request.user['userId'];
-    return this.authService.deleteAccount(userId, deleteAccountDto);
+    //return this.authService.deleteAccount(userId, deleteAccountDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -68,14 +66,14 @@ export class AuthController {
     @Param('id', ParseIntPipe) userId: number,
   ) {
     const userIdG = request.user['userId'];
-    return this.authService.getOneUser(userId);
+    //return this.authService.getOneUser(userId);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('modif')
   modifuser(@Req() request: Request, @Body() modifUserDto: ModifUserDto) {
     const userId = request.user['userId'];
-    return this.authService.modifuser(userId, modifUserDto);
+    //return this.authService.modifuser(userId, modifUserDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -85,6 +83,6 @@ export class AuthController {
     @Body() modifStatutUserDto: ModifStatutUserDto,
   ) {
     const userId = request.user['userId'];
-    return this.authService.modifstatut(userId, modifStatutUserDto);
+    //return this.authService.modifstatut(userId, modifStatutUserDto);
   }
 }

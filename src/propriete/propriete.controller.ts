@@ -24,7 +24,7 @@ export class ProprieteController {
   @Get('all')
   getAll(@Req() request: Request) {
     const userId = request.user['userId'];
-    return this.proprieteService.getAll();
+    //return this.proprieteService.getAll();
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -34,7 +34,18 @@ export class ProprieteController {
     @Req() request: Request,
   ) {
     const userId = request.user['userId'];
-    return this.proprieteService.getOne(userId, proprieteId);
+    //return this.proprieteService.getOne(userId, proprieteId);
+  }
+
+  
+  @UseGuards(AuthGuard('jwt'))
+  @Get('proprietebycode/:id')
+  getOneByCode(
+    @Param('id') proprieteCode: string,
+    @Req() request: Request,
+  ) {
+    const userId = request.user['userId'];
+    //return this.proprieteService.getOneByCode(userId, proprieteCode);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -44,7 +55,7 @@ export class ProprieteController {
     @Req() request: Request,
   ) {
     const userId = request.user['userId'];
-    return this.proprieteService.getAllpropbyBailleur(userId, bailleurId);
+    //return this.proprieteService.getAllpropbyBailleur(userId, bailleurId);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -54,7 +65,7 @@ export class ProprieteController {
     @Body() ajoutProprieteDto: AjoutProprieteDto,
   ) {
     const userId = request.user['userId'];
-    return this.proprieteService.ajoutePropriete(userId, ajoutProprieteDto);
+    //return this.proprieteService.ajoutePropriete(userId, ajoutProprieteDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -64,7 +75,7 @@ export class ProprieteController {
     @Body() modifProprieteDto: ModifProprieteDto,
   ) {
     const userId = request.user['userId'];
-    return this.proprieteService.modifiPropriete(userId, modifProprieteDto);
+    //return this.proprieteService.modifiPropriete(userId, modifProprieteDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -74,6 +85,6 @@ export class ProprieteController {
     @Param('id', ParseIntPipe) proprieteId: number,
   ) {
     const userId = request.user['userId'];
-    return this.proprieteService.supone(userId, proprieteId);
+    //return this.proprieteService.supone(userId, proprieteId);
   }
 }

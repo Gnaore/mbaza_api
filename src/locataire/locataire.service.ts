@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prismaserv/prisma.service';
 import * as speakeasy from 'speakeasy';
 import { ConfigService } from '@nestjs/config';
 import { AjoutLocataireDto } from './Dto/ajoutLocataireDto';
@@ -8,9 +7,7 @@ import { AjoutLocataireDto } from './Dto/ajoutLocataireDto';
 @Injectable()
 export class LocataireService {
 
-  
-
-    constructor(
+  /*  constructor(
         private readonly prismaService: PrismaService,
         private readonly configService: ConfigService,
     ) { }
@@ -157,5 +154,5 @@ export class LocataireService {
             where: { locataireId },
         });
         return { data: ret };
-    }
+    }*/
 }

@@ -1,11 +1,10 @@
 import { AjoutTypebienDto } from './Dto/ajoutTypebienDto';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prismaserv/prisma.service';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TypebienService {
-  constructor(
+  /*constructor(
     private readonly prismaService: PrismaService,
     private readonly configService: ConfigService,
   ) {}
@@ -57,5 +56,5 @@ export class TypebienService {
       where: { typebienId },
     });
     return { data: ret };
-  }
+  }*/
 }
