@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prismaserv/prisma.service';
 import { ModifProprieteDto } from './Dto/modifProprieteDto';
 import { AjoutProprieteDto } from './Dto/ajoutProprieteDto';
 import * as speakeasy from 'speakeasy';
@@ -7,7 +6,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ProprieteService {
-  constructor(
+ /* constructor(
     private prismaService: PrismaService,
     private configService: ConfigService,
   ) {}
@@ -34,10 +33,21 @@ export class ProprieteService {
     return { data: ret };
   }
 
+  async getOneByCode(userId: number, proprieteCode: string) {
+    const ret = await this.prismaService.propriete.findUnique({
+      where: { proprieteCode },
+      include: {
+        bailleur: {},
+        typebien: {},
+      },
+    });
+    return { data: ret };
+  }
+
   async getAllpropbyBailleur(userId: number, bailleurId: number) {
     const ret = await this.prismaService.propriete.findMany({
       where: {
-        bailleurId,
+        bailleurId: bailleurId,
       },
       include: {
         typebien: {},
@@ -181,5 +191,5 @@ export class ProprieteService {
       },
     });
     return { data: ret };
-  }
+  }*/
 }

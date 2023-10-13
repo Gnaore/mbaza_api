@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prismaserv/prisma.service';
 import { ConfigService } from '@nestjs/config';
 import { AjoutPaysDto } from './Dto/ajoutPaysDto';
 
 @Injectable()
 export class PaysService {
-  constructor(
+ /* constructor(
     private readonly prismaService: PrismaService,
     private readonly configService: ConfigService,
   ) {}
@@ -57,5 +56,5 @@ export class PaysService {
       where: { paysId },
     });
     return { data: ret };
-  }
+  }*/
 }

@@ -23,14 +23,14 @@ export class BanqueController {
   @Get('all')
   getAll(@Req() request: Request) {
     const userId = request.user['userId'];
-    return this.banqueService.getAll();
+    //return this.banqueService.getAll();
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/:id')
   getOne(@Param('id', ParseIntPipe) banqueId: number, @Req() request: Request) {
     const userId = request.user['userId'];
-    return this.banqueService.getOne(userId, banqueId);
+    //return this.banqueService.getOne(userId, banqueId);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -40,7 +40,7 @@ export class BanqueController {
     @Body() ajoutBanqueDto: AjoutBanqueDto,
   ) {
     const userId = request.user['userId'];
-    return this.banqueService.ajouteBanque(userId, ajoutBanqueDto);
+    //return this.banqueService.ajouteBanque(userId, ajoutBanqueDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -50,13 +50,13 @@ export class BanqueController {
     @Body() ajoutBanqueDto: AjoutBanqueDto,
   ) {
     const userId = request.user['userId'];
-    return this.banqueService.modifiBanque(userId, ajoutBanqueDto);
+    //return this.banqueService.modifiBanque(userId, ajoutBanqueDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('sup/:id')
   delete(@Req() request: Request, @Param('id', ParseIntPipe) banqueId: number) {
     const userId = request.user['userId'];
-    return this.banqueService.supone(userId, banqueId);
+    //return this.banqueService.supone(userId, banqueId);
   }
 }

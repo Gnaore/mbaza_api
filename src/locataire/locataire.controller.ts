@@ -24,41 +24,41 @@ export class LocataireController {
   @Get('all')
   getAll(@Req() request: Request) {
     const userId = request.user['userId'];
-    return this.locataireService.getAll();
+    //return this.locataireService.getAll();
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/:id')
   getOne(@Param('id', ParseIntPipe) locataireId: number, @Req() request: Request) {
     const userId = request.user['userId'];
-    return this.locataireService.getOne(userId, locataireId);
+    //return this.locataireService.getOne(userId, locataireId);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/:id')
   getbyBailleur(@Param('id', ParseIntPipe) bailleurId: number, @Req() request: Request) {
     const userId = request.user['userId'];
-    return this.locataireService.getlocatairesbyBailleur(userId, bailleurId);
+    //return this.locataireService.getlocatairesbyBailleur(userId, bailleurId);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('create')
   ajouteLocataire(@Req() request: Request, @Body() ajoutLocataireDto: AjoutLocataireDto) {
     const userId = request.user['userId'];
-    return this.locataireService.ajouteLocataire(userId, ajoutLocataireDto);
+    //return this.locataireService.ajouteLocataire(userId, ajoutLocataireDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put('modif')
   modifiLocataire(@Req() request: Request, @Body() ajoutLocataireDto: AjoutLocataireDto) {
     const userId = request.user['userId'];
-    return this.locataireService.modifiLocataire(userId, ajoutLocataireDto);
+    //return this.locataireService.modifiLocataire(userId, ajoutLocataireDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('sup/:id')
   delete(@Req() request: Request, @Param('id', ParseIntPipe) locataireId: number) {
     const userId = request.user['userId'];
-    return this.locataireService.supone(userId, locataireId);
+    //return this.locataireService.supone(userId, locataireId);
   }
 }

@@ -4,7 +4,6 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prismaserv/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from 'src/mailer/mailer.service';
 import { JwtService } from '@nestjs/jwt';
@@ -20,8 +19,7 @@ import { ModifStatutUserDto } from './Dto/modifStatutUserDto';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly prismaService: PrismaService,
+ /* constructor(
     private readonly mailerService: MailerService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
@@ -92,7 +90,8 @@ export class AuthService {
       user: {
         username: user.username,
         useremail: user.email,
-        userrole: user.role
+        userrole: user.role,
+        userId: user.userId
       },
     };
   }
@@ -198,5 +197,5 @@ export class AuthService {
       },
     });
     return { data: ret };
-  }
+  }*/
 }
