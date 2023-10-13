@@ -16,6 +16,7 @@ import { WcallbackController } from './wcallback/wcallback.controller';
 import { WcallbackModule } from './wcallback/wcallback.module';
 import { LocataireModule } from './locataire/locataire.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -29,7 +30,6 @@ dotenv.config();
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      autoLoadEntities: true,
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
@@ -49,6 +49,7 @@ dotenv.config();
     BienModule,
     WcallbackModule,
     LocataireModule,
+    UserModule,
   ],
   controllers: [WcallbackController],
 })
