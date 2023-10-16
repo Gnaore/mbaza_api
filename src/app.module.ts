@@ -12,19 +12,20 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ProprieteModule } from './propriete/propriete.module';
 import { BienModule } from './bien/bien.module';
-import { WcallbackController } from './wcallback/wcallback.controller';
 import { WcallbackModule } from './wcallback/wcallback.module';
 import { LocataireModule } from './locataire/locataire.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import * as dotenv from 'dotenv';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 dotenv.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'mariadb',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
@@ -42,15 +43,16 @@ dotenv.config();
     PaysModule,
     UploadModule, //Pour envoi de mail
     MulterModule.register({ dest: './files' }),
-    ServeStaticModule.forRoot({
+    /*ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
-    }),
+    }),*/
     ProprieteModule,
     BienModule,
     WcallbackModule,
     LocataireModule,
     UserModule,
   ],
-  controllers: [WcallbackController],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

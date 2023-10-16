@@ -9,13 +9,6 @@ import { MailerService } from 'src/mailer/mailer.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as speakeasy from 'speakeasy';
-import { ResetPasswordConfirmationDto } from './Dto/resetPasswordConfirmationDto';
-import { SignupDto } from './Dto/signupDto';
-import { SigninDto } from './Dto/signinDto';
-import { ResetPasswordDemandDto } from './Dto/resetPasswordDemandDto';
-import { DeleteAccountDto } from './Dto/deleteAccountDto';
-import { ModifUserDto } from './Dto/modifUserDto';
-import { ModifStatutUserDto } from './Dto/modifStatutUserDto';
 import { Repository } from 'typeorm';
 
 @Injectable()
