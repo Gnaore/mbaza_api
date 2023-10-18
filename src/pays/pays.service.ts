@@ -17,7 +17,7 @@ export class PaysService {
     const { paysId, libellePays, codePays } = ajoutPaysDto;
 
     const paysData = new AjoutPaysDto()
-    paysData.paysId = undefined
+    paysData.paysId = paysId
     paysData.codePays = codePays
     paysData.libellePays = libellePays
 
@@ -29,7 +29,7 @@ export class PaysService {
 
   async modifiPays(userId: number, ajoutPaysDto: AjoutPaysDto) {
     const { paysId, libellePays, codePays } = ajoutPaysDto;
-    const ret = await this.paysRepository.update({ paysId } , {
+    const ret = await this.paysRepository.update({ paysId: paysId } , {
       libellePays,
       codePays,
     } );
@@ -37,7 +37,7 @@ export class PaysService {
   }
 
   async supone(userId: any, paysId: number) {
-    const pays = await this.paysRepository.findOne({where: {paysId}})
+    const pays = await this.paysRepository.findOne({where: {paysId: paysId }})
     if (!pays) throw new NotFoundException("L'utilisateur n'existe pas");
     const ret = await this.paysRepository.remove(pays);
     return { data: ret };
@@ -52,7 +52,7 @@ export class PaysService {
   }
 
   async getOne(userId: number, paysId: number) {
-    const ret = await this.paysRepository.findOne({ where: { paysId } });
+    const ret = await this.paysRepository.findOne({ where: { paysId: paysId } });
     return { data: ret };
   }
 }

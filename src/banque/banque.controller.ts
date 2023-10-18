@@ -23,7 +23,7 @@ export class BanqueController {
   @Get('all')
   getAll(@Req() request: Request) {
     const userId = request.user['userId'];
-    //return this.banqueService.getAll();
+    return this.banqueService.getAll();
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -40,7 +40,7 @@ export class BanqueController {
     @Body() ajoutBanqueDto: AjoutBanqueDto,
   ) {
     const userId = request.user['userId'];
-    //return this.banqueService.ajouteBanque(userId, ajoutBanqueDto);
+    return this.banqueService.ajouteBanque(userId, ajoutBanqueDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
