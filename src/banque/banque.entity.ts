@@ -1,25 +1,28 @@
-import { Entity, PrimaryGeneratedColumn } from "typeorm";
+import { TimestampEntities } from "src/generics/timestampEmtities";
+import { PaysEntity } from "src/pays/pays.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('Banque')
-export class BanqueEntity {
-@PrimaryGeneratedColumn()
-banqueId: number
-
-
+export class BanqueEntity extends TimestampEntities{
+  @PrimaryGeneratedColumn()
+  banqueId: number
+  @Column({ length: 8 })
+  banqueCode: string
+  @Column()
+  libelleBanque: string
+  @Column({ length: 65 })
+  sigleBanque: string
+  @Column({ length: 65 })
+  contactBanque: string
+  
+  @ManyToOne(
+    type => PaysEntity , 
+    (pays)=> pays.banques,
+    {
+      cascade: true,
+      eager: true,
+      nullable: true   
+    })
+  pays: PaysEntity;
 }
-
-
-/*
-model Banque {
-    banqueId      Int        @id @default(autoincrement())
-    banqueCode    String     @unique @db.VarChar(8)
-    libelleBanque String     @db.VarChar(255)
-    sigleBanque   String     @db.VarChar(65)
-    contactBanque String     @db.VarChar(65)
-    createdAt     DateTime   @default(now())
-    updatedAt     DateTime   @updatedAt
-    bailleurs     Bailleur[] @relation("banque_bailleurs")
-    paysId        Int
-    pays          Pays       @relation("pays_baques", fields: [paysId], references: [paysId], onDelete: Cascade, onUpdate: Cascade)
-  }*/

@@ -1,12 +1,13 @@
 import { IsNotEmpty} from "class-validator";
 export class AjoutBanqueDto {
-    readonly banqueId: number;
+     banqueId: number;
     @IsNotEmpty()
-    readonly libelleBanque: string;
+     libelleBanque: string;
     @IsNotEmpty()
-    readonly sigleBanque: string;
+     sigleBanque: string;
     @IsNotEmpty()
-    readonly paysId: number;
+    paysId: number;
     @IsNotEmpty()
-    readonly contactBanque: string;
+     contactBanque: string;
+     banqueCode: string;
 }

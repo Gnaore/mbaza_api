@@ -41,9 +41,9 @@ dotenv.config();
     PaysModule,
     UploadModule, //Pour envoi de mail
     MulterModule.register({ dest: './files' }),
-    /*ServeStaticModule.forRoot({
+    ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
-    }),*/
+    }),
     ProprieteModule,
     BienModule,
     WcallbackModule,
