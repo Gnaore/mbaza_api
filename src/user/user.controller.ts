@@ -73,7 +73,7 @@ export class UserController {
       @Body() modifStatutUserDto: ModifStatutUserDto,
     ) {
       const userId = request.user['userId'];
-      //return this.authService.modifstatut(userId, modifStatutUserDto);
+      return this.userService.modifstatut(userId, modifStatutUserDto);
     }  
     
 }

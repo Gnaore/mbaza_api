@@ -13,6 +13,7 @@ import * as speakeasy from 'speakeasy';
 import { ResetPasswordConfirmationDto } from './Dto/resetPasswordConfirmationDto';
 import { ModifUserDto } from './Dto/modifUserDto';
 import { ModifStatutUserDto } from './Dto/modifStatutUserDto';
+import { DeleteAccountDto } from './Dto/deleteAccountDto';
 
 @Injectable()
 export class UserService {
@@ -102,7 +103,16 @@ export class UserService {
         const { email } = resetPasswordDemandDto;
         // ** Verifi si l'utilisateur existe
         const user = await this.userRepository.findOne({ where: { email } });
-        if (!user) throw new NotFoundException("L'utilisateur n'existe pas");
+        if (!user) {
+          return { 
+            data: 
+            {
+              success: false,
+              msg : 'L\'utilisateur n\'existe pas'
+            }
+        }
+      }
+        //throw new NotFoundException("L'utilisateur n'existe pas");
         // ** Modification
         const code = speakeasy.totp({
           secret: this.configService.get('OTP_CODE'),
@@ -116,7 +126,14 @@ export class UserService {
           code,
           url,
         );
-        return { data: 'Un mail de réinitialisation vous a été envoyé' };
+        return { 
+          data: 
+          {
+            success: true,
+            msg : 'Un mail de réinitialisation vous a été envoyé'
+          }
+          
+         };
       }
     
       async resetPasswordConfirmation(
@@ -125,7 +142,15 @@ export class UserService {
         const { email, password, code } = resetPasswordConfirmationDto;
         // ** Verifi si l'utilisateur existe
         const user = await this.userRepository.findOne({ where: { email } });
-        if (!user) throw new NotFoundException("L'utilisateur n'existe pas");
+        if (!user) {
+          return { 
+            data: 
+            {
+              success: false,
+              msg : 'L\'utilisateur n\'existe pas'
+            }
+        }
+      }
         // ** Modification
     
         const match = speakeasy.totp.verify({
@@ -138,12 +163,16 @@ export class UserService {
         if (!match) throw new UnauthorizedException('Code invalide');
         const hash = await bcrypt.hash(password, 10);
         await this.userRepository.update({ email },  { password: hash });
-        return { data: 'Mot de passe mise à jour' };
+        return { data: {
+          success: true,
+          msg : "Mot de passe mise à jour"
+        }
+        };
       }
     
-     /* async deleteAccount(userId: number, deleteAccountDto: DeleteAccountDto) {
+      async deleteAccount(userId: number, deleteAccountDto: DeleteAccountDto) {
         const { password } = deleteAccountDto;
-        const user = await this.prismaService.user.findUnique({
+        const user = await this.userRepository.findOne({
           where: { userId },
         });
         if (!user) throw new NotFoundException("L'utilisateur n'existe pas");
@@ -151,9 +180,9 @@ export class UserService {
         const match = await bcrypt.compare(password, user.password);
         if (!match) throw new NotFoundException("Le MDP n'est pas correct");
     
-        await this.prismaService.user.delete({ where: { userId } });
+        await this.userRepository.remove(user);
         return { data: 'Suppression terminée' };
-      }*/
+      }
     
       async getOneUser(userId: number) {
         const ret = await this.userRepository.findOne({ where: { userId } });

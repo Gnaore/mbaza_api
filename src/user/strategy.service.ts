@@ -2,6 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Repository } from 'typeorm';
+import { UserEntity } from './user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 type Payload = {
   sub: number;
@@ -12,7 +15,8 @@ type Payload = {
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     configService: ConfigService,
-   // private readonly prismaService: PrismaService,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -21,8 +25,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  /*async validate(payload: Payload) {
-    const user = await this.prismaService.user.findUnique({
+  async validate(payload: Payload) {
+    const user = await this.userRepository.findOne({
       where: { email: payload.email },
     });
     if (!user) throw new NotFoundException("L'utilisateur n'existe pas");
@@ -30,5 +34,5 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     //Reflect.deleteProperty(user, 'createdAt');
     //console.log(user);
     return user;
-  }*/
+  }
 }

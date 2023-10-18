@@ -1,8 +1,8 @@
 import { IsNotEmpty} from "class-validator";
 export class AjoutPaysDto {
-    readonly paysId: number;
+     paysId: number;
     @IsNotEmpty()
-    readonly codePays: string;
+     codePays: string;
     @IsNotEmpty()
-    readonly libellePays: string;
+     libellePays: string;
 }

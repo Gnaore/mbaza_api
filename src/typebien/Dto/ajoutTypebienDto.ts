@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 export class AjoutTypebienDto {
-  readonly typebienId: number;
+   typebienId: number;
   @IsNotEmpty()
-  readonly libelleTypebien: string;
+   libelleTypebien: string;
 }

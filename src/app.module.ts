@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from './mailer/mailer.module';
 import { BanqueModule } from './banque/banque.module';
@@ -35,7 +34,6 @@ dotenv.config();
       synchronize: true,
     }),
     ConfigModule.forRoot({ isGlobal: true }), //Pour utiliser les variables d'environnement
-    AuthModule,
     BanqueModule,
     MailerModule,
     BailleurModule,
