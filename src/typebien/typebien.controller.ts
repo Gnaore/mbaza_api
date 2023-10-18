@@ -23,7 +23,7 @@ export class TypebienController {
   @Get('all')
   getAll(@Req() request: Request) {
     const userId = request.user['userId'];
-    ////return this.typebienService.getAll();
+    return this.typebienService.getAll();
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -33,7 +33,7 @@ export class TypebienController {
     @Req() request: Request,
   ) {
     const userId = request.user['userId'];
-    ////return this.typebienService.getOne(userId, typebienId);
+    return this.typebienService.getOne(userId, typebienId);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -43,7 +43,7 @@ export class TypebienController {
     @Body() ajoutTypebienDto: AjoutTypebienDto,
   ) {
     const userId = request.user['userId'];
-    ////return this.typebienService.ajouteTypebien(userId, ajoutTypebienDto);
+    return this.typebienService.ajouteTypebien(userId, ajoutTypebienDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -53,7 +53,7 @@ export class TypebienController {
     @Body() ajoutTypebienDto: AjoutTypebienDto,
   ) {
     const userId = request.user['userId'];
-    ////return this.typebienService.modifiTypebien(userId, ajoutTypebienDto);
+    return this.typebienService.modifiTypebien(userId, ajoutTypebienDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -63,6 +63,6 @@ export class TypebienController {
     @Param('id', ParseIntPipe) typebienId: number,
   ) {
     const userId = request.user['userId'];
-    ////return this.typebienService.supone(userId, typebienId);
+    return this.typebienService.supone(userId, typebienId);
   }
 }

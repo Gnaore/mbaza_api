@@ -23,7 +23,7 @@ export class PaysController {
     @Get('all')
     getAll(@Req() request: Request) {
       const userId = request.user['userId'];
-      //return this.paysService.getAll();
+      return this.paysService.getAll();
     }
   
     @UseGuards(AuthGuard('jwt'))
@@ -40,7 +40,7 @@ export class PaysController {
       @Body() ajoutPaysDto: AjoutPaysDto,
     ) {
       const userId = request.user['userId'];
-      //return this.paysService.ajoutePays(userId, ajoutPaysDto);
+      return this.paysService.ajoutePays(userId, ajoutPaysDto);
     }
   
     @UseGuards(AuthGuard('jwt'))
