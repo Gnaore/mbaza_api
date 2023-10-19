@@ -45,35 +45,43 @@ export class BanqueService {
  
      return { data: ret };
    }
- /*
+
    async modifiBanque(userId: number, ajoutBanqueDto: AjoutBanqueDto) {
+    
      const { banqueId, libelleBanque, sigleBanque, paysId, contactBanque } =
        ajoutBanqueDto;
-     const ret = await this.prismaService.banque.update({
-       where: { banqueId },
-       data: {
-         sigleBanque,
-         paysId,
-         libelleBanque,
-         contactBanque,
-       },
+       const paysR = await this.paysService.getOne(userId, paysId)
+     const ret = await this.banqueRepository.update({banqueId}, {
+      libelleBanque,
+      sigleBanque,
+      contactBanque,
+      pays: paysR.data
      });
      return { data: ret };
    }
- 
+  
+
    async supone(userId: any, banqueId: number) {
-     const ret = await this.prismaService.banque.delete({ where: { banqueId } });
+    const banqueS = await this.banqueRepository.find({where: {banqueId}})
+     const ret = await this.banqueRepository.remove(banqueS);
      return { data: ret };
    }
-
  
 
   async getOne(userId: number, banqueId: number) {
-    const ret = await this.prismaService.banque.findUnique({
+    const ret = await this.banqueRepository.find({
       where: { banqueId },
+      relations: ['pays'],
+      select: {
+        pays: {
+          paysId: true,
+          libellePays: true,
+          codePays:true
+        }
+      }
     });
     return { data: ret };
-  }*/
+  }
 
   async getAll() {
     const ret = await this.banqueRepository.find({
