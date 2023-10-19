@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ProprieteEntity } from "src/propriete/propriete.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Typebien')
 export class TypebienEntity {
@@ -6,4 +7,10 @@ export class TypebienEntity {
     typebienId: number
     @Column()
     libelleTypebien: string
+
+    @OneToMany(
+        type=> ProprieteEntity,
+        (propriete)=>propriete.typebien
+    )
+    proprietes: ProprieteEntity[];
 }

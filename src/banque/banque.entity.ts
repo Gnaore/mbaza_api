@@ -1,12 +1,13 @@
+import { BailleurEntity } from "src/bailleur/bailleur.entity";
 import { TimestampEntities } from "src/generics/timestampEmtities";
 import { PaysEntity } from "src/pays/pays.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('Banque')
-export class BanqueEntity extends TimestampEntities{
+export class BanqueEntity extends TimestampEntities {
   @PrimaryGeneratedColumn()
-  banqueId: number
+  banqueId: number 
   @Column({ length: 8 })
   banqueCode: string
   @Column()
@@ -15,14 +16,21 @@ export class BanqueEntity extends TimestampEntities{
   sigleBanque: string
   @Column({ length: 65 })
   contactBanque: string
-  
+
   @ManyToOne(
-    type => PaysEntity , 
-    (pays)=> pays.banques,
+    type => PaysEntity,
+    (pays) => pays.banques,
     {
       cascade: true,
       eager: true,
-      nullable: true   
+      nullable: true
     })
   pays: PaysEntity;
+
+  @OneToMany(
+    type => BailleurEntity,
+    (bailleur) => bailleur.banque,
+  )
+  bailleurs: BailleurEntity[];
+
 }

@@ -1,41 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { BailleurEntity } from './bailleur.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 import { AjoutBailleurDto } from './Dto/ajoutBailleurDto';
+import { BanqueService } from 'src/banque/banque.service';
 import { ModifBailleurDto } from './Dto/modifBailleurDto';
 
 @Injectable()
 export class BailleurService {
- /* constructor(private readonly prismaService: PrismaService) {}
+ constructor(
+  @InjectRepository(BailleurEntity)
+  private readonly bailleurRepository: Repository<BailleurEntity>,
+  private readonly banqueService: BanqueService
+  ) {}
 
   async getAll() {
-    const ret = await this.prismaService.bailleur.findMany({
-      include: {
-        proprietes: {},
-      },
-      orderBy: [{ bailleurNomPrenoms: 'asc' }],
+    const ret = await this.bailleurRepository.find({
+     relations: ['proprietes', 'banque']
     });
     return { data: ret };
   }
-
+ 
   async getOne(userId: number, bailleurId: number) {
-    const ret = await this.prismaService.bailleur.findUnique({
+    const ret = await this.bailleurRepository.findOne({
       where: { bailleurId },
-      include: {
-        banque: {
-          include: {
-            pays: {},
-          },
-        },
-        proprietes: {},
-        locataires: {},
-      },
+      relations: ['banque']
     });
     return { data: ret };
   }
 
   async supone(userId: any, bailleurId: number) {
-    const ret = await this.prismaService.bailleur.delete({
-      where: { bailleurId },
-    });
+    const bailleurRem = await this.bailleurRepository.findOne({where: {bailleurId}})
+    const ret = await this.bailleurRepository.remove(bailleurRem);
     return { data: ret };
   }
 
@@ -58,16 +54,19 @@ export class BailleurService {
       bailleurlienCNI,
       bailleurLienPhoto,
     } = modifBailleurDto;
-    const ret = await this.prismaService.bailleur.update({
-      where: { bailleurId },
-      data: {
+
+    const banqueR = await this.banqueService.getOne(userId, banqueId)
+
+    const ret = await this.bailleurRepository.update({
+      bailleurId },
+      {
         bailleurNomPrenoms,
         bailleurTelephone,
         bailleurAdresse,
         bailleurEmail,
         bailleurDateNaissance,
         bailleurNumero,
-        banqueId,
+        banque: banqueR.data,
         bailleurNumCompte,
         bailleurRevenu,
         bailleurTaux,
@@ -77,7 +76,7 @@ export class BailleurService {
         bailleurlienCNI,
         bailleurLienPhoto,
       },
-    });
+    );
     return { data: ret };
   }
 
@@ -101,26 +100,29 @@ export class BailleurService {
     } = ajoutBailleurDto;
 
     //Ajout à la base
-    const ret = await this.prismaService.bailleur.create({
-      data: {
-        bailleurId: undefined,
-        bailleurNomPrenoms,
-        bailleurTelephone,
-        bailleurAdresse,
-        bailleurEmail,
-        bailleurDateNaissance,
-        bailleurNumero,
-        banqueId,
-        bailleurNumCompte,
-        bailleurRevenu,
-        bailleurTaux,
-        bailleurPersUrgence,
-        bailleurTelUrgence,
-        bailleurRelationUrgence,
-        bailleurlienCNI,
-        bailleurLienPhoto,
-      },
-    });
+
+    const banqueR = await this.banqueService.getOne(userId, banqueId)
+
+    const bailleurData = new BailleurEntity
+   
+    bailleurData.bailleurId = undefined,
+    bailleurData.bailleurNomPrenoms = bailleurNomPrenoms
+    bailleurData.bailleurTelephone = bailleurTelephone
+    bailleurData.bailleurAdresse = bailleurAdresse
+    bailleurData.bailleurEmail = bailleurEmail
+    bailleurData.bailleurDateNaissance = bailleurDateNaissance
+    bailleurData.bailleurNumero = bailleurNumero
+    bailleurData.bailleurNumCompte = bailleurNumCompte
+    bailleurData.bailleurRevenu = bailleurRevenu
+    bailleurData.bailleurTaux = bailleurTaux
+    bailleurData.bailleurPersUrgence = bailleurPersUrgence
+    bailleurData.bailleurTelUrgence = bailleurTelUrgence
+    bailleurData.bailleurRelationUrgence = bailleurRelationUrgence
+    bailleurData.bailleurlienCNI = bailleurlienCNI
+    bailleurData.bailleurLienPhoto = bailleurLienPhoto
+    bailleurData.banque = banqueR.data
+
+    const ret = await this.bailleurRepository.save(bailleurData);
     return { data: ret };
-  }*/
+  }
 }

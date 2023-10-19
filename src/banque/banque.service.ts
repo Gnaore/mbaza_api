@@ -69,7 +69,7 @@ export class BanqueService {
  
 
   async getOne(userId: number, banqueId: number) {
-    const ret = await this.banqueRepository.find({
+    const ret = await this.banqueRepository.findOne({
       where: { banqueId },
       relations: ['pays'],
       select: {
