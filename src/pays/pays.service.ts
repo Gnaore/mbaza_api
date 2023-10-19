@@ -16,8 +16,8 @@ export class PaysService {
   async ajoutePays(userId: number, ajoutPaysDto: AjoutPaysDto) {
     const { paysId, libellePays, codePays } = ajoutPaysDto;
 
-    const paysData = new AjoutPaysDto()
-    paysData.paysId = paysId
+    const paysData = new PaysEntity
+    paysData.paysId = undefined
     paysData.codePays = codePays
     paysData.libellePays = libellePays
 
