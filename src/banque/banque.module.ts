@@ -10,6 +10,7 @@ import { PaysService } from 'src/pays/pays.service';
 @Module({
   imports:[TypeOrmModule.forFeature([BanqueEntity]), PaysModule ],
   controllers: [BanqueController],
-  providers: [BanqueService]
+  providers: [BanqueService],
+  exports: [BanqueService]
 })
 export class BanqueModule {}
