@@ -24,7 +24,7 @@ export class ProprieteEntity {
     @Column({ nullable: true })
     proprieteDescription: string
     @Column({ nullable: true })
-    proprieteStatu: number
+    proprieteStatu: string
     @Column({ nullable: true, default: 0, type: "float" })
     proprietePrix: number
     @Column({ nullable: true, default: 0, type: "float" })
