@@ -7,6 +7,7 @@ import { TypebienEntity } from './typebien.entity';
 @Module({
   imports:[TypeOrmModule.forFeature([TypebienEntity])],
   controllers: [TypebienController],
-  providers: [TypebienService]
+  providers: [TypebienService],
+  exports: [TypebienService]
 })
 export class TypebienModule {}

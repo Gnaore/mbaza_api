@@ -8,6 +8,7 @@ import { BanqueModule } from 'src/banque/banque.module';
 @Module({
   imports: [TypeOrmModule.forFeature([BailleurEntity]), BanqueModule],
   controllers: [BailleurController],
-  providers: [BailleurService]
+  providers: [BailleurService],
+  exports: [BailleurService]
 })
 export class BailleurModule {}
