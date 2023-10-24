@@ -2,13 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { AjoutBienDto } from './Dto/ajoutBienDto';
 import * as speakeasy from 'speakeasy';
 import { ConfigService } from '@nestjs/config';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BienEntity } from './bien.entity';
+import { Repository } from 'typeorm';
+import { TypebienService } from 'src/typebien/typebien.service';
 
 @Injectable()
 export class BienService {
-/*  constructor(
-    private readonly prismaService: PrismaService,
+  constructor(
+    @InjectRepository(BienEntity)
+    private readonly bienRepository: Repository<BienEntity>,
+    private typebienService: TypebienService,
     private readonly configService: ConfigService,
-  ) {}
+  ) { }
 
   async ajouteBien(userId: number, ajoutBienDto: AjoutBienDto) {
     const {
@@ -39,25 +45,24 @@ export class BienService {
     const reference = codeotp + index;
 
     //Ajout à la base
-    const ret = await this.prismaService.bien.create({
-      data: {
-        bienId: undefined,
-        bienAdresse,
-        bienCategorie,
-        bienCommuneQuartier,
-        bienContactBailleur,
-        bienContrat,
-        bienDescription,
-        bienImage,
-        bienLibelle,
-        bienNbrePiece,
-        bienNomBailleur,
-        bienPrix,
-        bienSurface,
-        bienVille,
-        typebienId,
-        bienReference: reference,
-      },
+    const typebienRec = await this.typebienService.getOne(userId, typebienId)
+    const ret = await this.bienRepository.save({
+      bienId: undefined,
+      bienAdresse,
+      bienCategorie,
+      bienCommuneQuartier,
+      bienContactBailleur,
+      bienContrat,
+      bienDescription,
+      bienImage,
+      bienLibelle,
+      bienNbrePiece,
+      bienNomBailleur,
+      bienPrix,
+      bienSurface,
+      bienVille,
+      typebien: typebienRec.data,
+      bienReference: reference,
     });
     return { data: ret };
   }
@@ -80,9 +85,9 @@ export class BienService {
       bienVille,
       typebienId,
     } = ajoutBienDto;
-    const ret = await this.prismaService.bien.update({
-      where: { bienId },
-      data: {
+    const typebienRec = await this.typebienService.getOne(userId, typebienId)
+    const ret = await this.bienRepository.update({ bienId },
+      {
         bienAdresse,
         bienCategorie,
         bienCommuneQuartier,
@@ -96,37 +101,32 @@ export class BienService {
         bienPrix,
         bienSurface,
         bienVille,
-        typebienId,
+        typebien: typebienRec.data,
       },
-    });
+    );
     return { data: ret };
   }
 
   async supone(userId: any, bienId: number) {
-    const ret = await this.prismaService.bien.delete({
-      where: { bienId },
-    });
+    const bienSup = await this.bienRepository.findOne({ where: { bienId } })
+    const ret = await this.bienRepository.remove(bienSup);
     return { data: ret };
   }
 
   async getAll() {
-    const ret = await this.prismaService.bien.findMany({
-      include: {
-        typebien: {},
+    const ret = await this.bienRepository.find({
+      relations: {
+        typebien: true
       },
-      orderBy: [
-        {
-          bienLibelle: 'asc',
-        },
-      ],
+      order: { bienLibelle: 'ASC' }
     });
     return { data: ret };
   }
 
   async getOne(userId: number, bienId: number) {
-    const ret = await this.prismaService.bien.findUnique({
+    const ret = await this.bienRepository.findOne({
       where: { bienId },
     });
     return { data: ret };
-  }*/
+  }
 }
