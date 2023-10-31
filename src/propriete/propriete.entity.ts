@@ -1,13 +1,14 @@
 import { type } from "os";
 import { BailleurEntity } from "src/bailleur/bailleur.entity";
+import { LocataireEntity } from "src/locataire/locataire.entity";
 import { TypebienEntity } from "src/typebien/typebien.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Propriete')
 export class ProprieteEntity {
     @PrimaryGeneratedColumn()
     proprieteId: number
-    @Column({ length: 65 })
+    @Column({ length: 65, unique: true })
     proprieteCode: string
     @Column()
     proprieteAdresse: string
@@ -57,25 +58,20 @@ export class ProprieteEntity {
     @ManyToOne(
         type => BailleurEntity,
         (bailleur) => bailleur.proprietes,
-        {
-            cascade: true,
-            eager: true,
-            nullable: true
-        }
     )
     bailleur: BailleurEntity;
 
     @ManyToOne(
         type => TypebienEntity,
         (typebien) => typebien.proprietes,
-        {
-            cascade: true,
-            eager: true,
-            nullable: true
-        }
     )
     typebien: TypebienEntity;
 
+    @OneToOne(
+        type => LocataireEntity,
+        (locataire) => locataire.propriete
+        )
+    locataire: LocataireEntity
 
 }
 /*

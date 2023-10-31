@@ -20,16 +20,15 @@ export class BanqueEntity extends TimestampEntities {
   @ManyToOne(
     type => PaysEntity,
     (pays) => pays.banques,
-    {
-      cascade: true,
-      eager: true,
-      nullable: true
-    })
+    )
   pays: PaysEntity;
 
   @OneToMany(
     type => BailleurEntity,
     (bailleur) => bailleur.banque,
+    {
+      cascade: true,
+    }
   )
   bailleurs: BailleurEntity[];
 

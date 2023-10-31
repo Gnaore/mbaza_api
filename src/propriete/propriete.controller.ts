@@ -58,6 +58,17 @@ export class ProprieteController {
     return this.proprieteService.getAllpropbyBailleur(userId, bailleurId);
   }
 
+  
+  @UseGuards(AuthGuard('jwt'))
+  @Get('dispobybailleur/:id')
+  getAllpropDispobyBailleur(
+    @Param('id', ParseIntPipe) bailleurId: number,
+    @Req() request: Request,
+  ) {
+    const userId = request.user['userId'];
+    return this.proprieteService.getAllpropDispobyBailleur(userId, bailleurId);
+  }
+
   @UseGuards(AuthGuard('jwt'))
   @Post('create')
   ajoutePropriete(

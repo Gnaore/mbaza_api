@@ -80,6 +80,23 @@ export class ProprieteService {
     return { data: ret };
   }
 
+
+  
+  async getAllpropDispobyBailleur(userId: number, bailleurId: number) {
+    const ret = await this.proprieteRepository.find({
+      relations: {
+        bailleur: true,
+        typebien: true
+      },
+      where: {bailleur:{bailleurId}, proprieteStatu: "Disponible" },
+      order:{
+        typebien:{libelleTypebien: 'ASC'},
+        proprieteAnnee: 'ASC'
+      }
+    });
+    return { data: ret };
+  }
+
   async supone(userId: any, proprieteId: number) {
     const propeieteRem = await this.proprieteRepository.findOne({where:{proprieteId}})
     const ret = await this.proprieteRepository.remove(propeieteRem);

@@ -2,23 +2,70 @@ import { Injectable } from '@nestjs/common';
 import * as speakeasy from 'speakeasy';
 import { ConfigService } from '@nestjs/config';
 import { AjoutLocataireDto } from './Dto/ajoutLocataireDto';
+import { Repository } from 'typeorm';
+import { LocataireEntity } from './locataire.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BailleurService } from 'src/bailleur/bailleur.service';
+import { ProprieteController } from 'src/propriete/propriete.controller';
+import { ProprieteService } from 'src/propriete/propriete.service';
 
 
 @Injectable()
 export class LocataireService {
 
-  /*  constructor(
-        private readonly prismaService: PrismaService,
+    constructor(
+        @InjectRepository(LocataireEntity)
+        private readonly locataireRepository: Repository<LocataireEntity>,
+        private bailleurService: BailleurService,
+        private proprieteService: ProprieteService,
         private readonly configService: ConfigService,
     ) { }
 
 
-    async getlocatairesbyBailleur(userId: any, bailleurId: number) {
-        const ret = await this.prismaService.locataire.findMany({
-            where: { bailleurId },
+ /*   async getlocatairesbyBailleur(userId: any, bailleurId: number) {
+        const RetB = await this.bailleurService.getOne(userId, bailleurId)
+
+        const ret = await this.locataireRepository.find(
+            {
+                relations: {propriete: true},
+                where: {bailleur: RetB.data}
+            }
+            );
+        return { data: RetB };
+    }*/
+
+    async getAll() {
+        const ret = await this.locataireRepository.find({
+            relations: {
+                bailleur: true,
+                propriete: true,
+            },
+            order: 
+                {
+                    locataireNom: 'ASC',
+                },
+            
         });
         return { data: ret };
     }
+
+    async getOne(userId: number, locataireId: number) {
+        const ret = await this.locataireRepository.findOne({
+            relations: {bailleur: true, propriete: true},
+            where: { locataireId },
+        });
+        return { data: ret };
+    }
+
+    async getOneByReference(ref: string) {
+        const ret = await this.locataireRepository.findOne({
+            relations: {bailleur: true, propriete: true},
+            where: { locataireRef: ref },
+        });
+        return { data: ret };
+    }
+    
+
 
     async ajouteLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
         const {
@@ -53,32 +100,35 @@ export class LocataireService {
         const reference = codeotp + index;
 
         //Ajout à la base
-        const ret = await this.prismaService.locataire.create({
-            data: {
-                locataireId: undefined,
-                locataireBanque,
-                locataireDatenais,
-                locataireEmail,
-                locataireEmailgarant,
-                locataireNationalite,
-                locataireNbrecharge,
-                locataireNom,
-                locataireNomgarant,
-                locatairePhoto,
-                locataireProfession,
-                locataireRef: reference,
-                locataireSalaire,
-                locataireSituationmatri,
-                locataireTel,
-                locataireTelgarant,
-                locataireTypecontrat,
-                bailleurId,
-                proprieteCode
-            },
-        });
+const bail = await this.bailleurService.getOne(userId, bailleurId)
+const prop = await this.proprieteService.getOneByCode(userId, proprieteCode)
+
+        let locataireE = new LocataireEntity
+        locataireE = {
+            locataireId: undefined,
+            locataireBanque,
+            locataireDatenais,
+            locataireEmail,
+            locataireEmailgarant,
+            locataireNationalite,
+            locataireNbrecharge,
+            locataireNom,
+            locataireNomgarant,
+            locatairePhoto,
+            locataireProfession,
+            locataireRef: reference,
+            locataireSalaire,
+            locataireSituationmatri,
+            locataireTel,
+            locataireTelgarant,
+            locataireTypecontrat,
+            bailleur: bail.data,
+            propriete: prop.data
+        }
+        const ret = await this.locataireRepository.save(locataireE);
         return { data: ret };
     }
-
+/*
     async modifiLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
         const {
             locataireId,
@@ -134,25 +184,8 @@ export class LocataireService {
         return { data: ret };
     }
 
-    async getAll() {
-        const ret = await this.prismaService.locataire.findMany({
-            include: {
-                bailleur: {},
-                propriete: {},
-            },
-            orderBy: [
-                {
-                    locataireNom: 'asc',
-                },
-            ],
-        });
-        return { data: ret };
-    }
 
-    async getOne(userId: number, locataireId: number) {
-        const ret = await this.prismaService.locataire.findUnique({
-            where: { locataireId },
-        });
-        return { data: ret };
-    }*/
+
+
+    */
 }

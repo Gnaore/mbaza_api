@@ -1,5 +1,6 @@
+import { BailleurEntity } from "src/bailleur/bailleur.entity";
 import { TimestampEntities } from "src/generics/timestampEmtities";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('User')
@@ -21,5 +22,16 @@ export class UserEntity extends TimestampEntities {
     @Column()
     paysId: number;
     @Column({ length: 255 })
-    lienphoto: string;
+    lienphoto: string
+
+
+    @OneToOne(
+        type => BailleurEntity,
+        (bailleur) => bailleur.user,
+        {
+            nullable: true,
+            cascade: true
+        })
+    @JoinColumn()
+    bailleur: BailleurEntity
 }
