@@ -185,7 +185,13 @@ export class UserService {
       }
     
       async getOneUser(userId: number) {
-        const ret = await this.userRepository.findOne({ where: { userId } });
+        const ret = await this.userRepository.findOne(
+          { where: { userId },
+          relations: {
+            bailleur: true
+          }
+         }
+          );
         return { data: ret };
       }
     

@@ -38,6 +38,13 @@ export class BailleurController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @Get('web/:id')
+  getOneByUserId(@Req() request: Request) {
+    const userId = request.user['userId'];
+    return this.bailleurService.getOneByUserId(userId);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Post('create')
   ajoutebailleur(
     @Req() request: Request,

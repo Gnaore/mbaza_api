@@ -1,7 +1,10 @@
+import { type } from "os";
 import { BanqueEntity } from "src/banque/banque.entity";
 import { TimestampEntities } from "src/generics/timestampEmtities";
+import { LocataireEntity } from "src/locataire/locataire.entity";
 import { ProprieteEntity } from "src/propriete/propriete.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { UserEntity } from "src/user/user.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Bailleur')
 export class BailleurEntity extends TimestampEntities {
@@ -38,24 +41,32 @@ export class BailleurEntity extends TimestampEntities {
 
     @ManyToOne(
         type => BanqueEntity,
-        (banque) => banque.bailleurs,
-        {
-            cascade: true,
-            eager: true,
-            nullable: true
-        }
+        (banque) => banque.bailleurs
     )
     banque: BanqueEntity;
 
     @OneToMany(
         type => ProprieteEntity,
-        (propriete) => propriete.bailleur
+        (propriete) => propriete.bailleur,
+        {
+            cascade: true
+        }
     )
     proprietes: ProprieteEntity[];
-}
 
-/*
-model Bailleur {
-    proprietes              Propriete[] @relation("bailleur_proprietes")
-    locataires              Locataire[] @relation("bailleur_locataires")
-}*/
+    @OneToOne(
+        type => UserEntity,
+        (user) => user.bailleur
+    )
+    user: UserEntity
+
+    @OneToMany(
+        type => LocataireEntity,
+        (locataire) => locataire.bailleur,
+        {
+            cascade: true
+        }
+    )
+    locataires: LocataireEntity[];
+
+}

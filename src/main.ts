@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors(); // pour Gerer le CORS qui block la communication entre site distant
   app.useGlobalPipes(new ValidationPipe()); //Pour gerer la validation
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 
 bootstrap();

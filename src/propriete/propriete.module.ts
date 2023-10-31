@@ -9,6 +9,7 @@ import { TypebienModule } from 'src/typebien/typebien.module';
 @Module({
   imports: [TypeOrmModule.forFeature([ProprieteEntity]), BailleurModule, TypebienModule],
   controllers: [ProprieteController],
-  providers: [ProprieteService]
+  providers: [ProprieteService],
+  exports: [ProprieteService]
 })
 export class ProprieteModule {}

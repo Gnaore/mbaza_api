@@ -11,13 +11,19 @@ export class TypebienEntity {
 
     @OneToMany(
         type => ProprieteEntity,
-        (propriete) => propriete.typebien
+        (propriete) => propriete.typebien,
+        {
+            cascade: true
+        }
     )
     proprietes: ProprieteEntity[];
 
     @OneToMany(
         type => BienEntity,
-        (bien) => bien.typebien
+        (bien) => bien.typebien,
+        {
+            cascade: true
+        }
     )
     biens: BienEntity[]
 
