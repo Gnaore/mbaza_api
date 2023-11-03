@@ -9,8 +9,8 @@ export class WcallbackService {
 
     // Dans votre service ou contrôleur
     async payementParTiers(payementDto: PayementDto) {
-        return payementDto
-        /* try {
+    
+        // try {
              const headers = {
                  // Les en-têtes que vous souhaitez inclure dans la requête POST
                  'Authorization': 'wave_ci_prod_PA5WLkmrmQFnB4KFiW4MIZNVIN51qM86Lhctic9fGunvsA2ddFpMqXKEnVpMFmTLomFwOeBpWnWmmp2DlTyEYBhCEXhQrtX3ig', // Exemple d'en-tête d'authentification
@@ -18,8 +18,8 @@ export class WcallbackService {
              };
  
              const response = await axios.post('https://api.wave.com/v1/checkout/sessions', payementDto, { headers: headers });
-             return response.data;
-         } catch (error) {
+             return response;
+       /*  } catch (error) {
              // Gérez les erreurs ici
              throw new Error('Erreur lors de la requête HTTP : ' + error.message);
          }*/
