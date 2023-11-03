@@ -10,9 +10,13 @@ import {
     Req,
     UseGuards,
 } from '@nestjs/common';
+import { PayementDto } from './Dto/payementDto';
+import { WcallbackService } from './wcallback.service';
 
 @Controller('wcallback')
 export class WcallbackController {
+    constructor(private wcallbackService: WcallbackService){}
+
 
     @Get()
     getall() {
@@ -23,6 +27,15 @@ export class WcallbackController {
     ajouteretour() {
         return "this.paysService.ajoutePays(userId, ajoutPaysDto)";
     }
+
+
+    @Post('payementtiers')
+    payementParTiers(
+      @Body() payementDto: PayementDto,
+    ) {
+      return this.wcallbackService.payementParTiers(payementDto);
+    }
+
     
 }
 
