@@ -33,8 +33,7 @@ export class WcallbackController {
     payementParTiers(
       @Body() payementDto: PayementDto,
     ) {
-     // return this.wcallbackService.payementParTiers(payementDto);
-      return payementDto;
+      return this.wcallbackService.payementParTiers(payementDto);
     }
 
     
