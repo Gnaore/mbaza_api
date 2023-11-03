@@ -18,13 +18,8 @@ export class WcallbackService {
                 // 'Content-Type': 'application/json', // Exemple d'en-tête de type de contenu
             };
 
-            const response = await axios.post('https://api.wave.com/v1/checkout/sessions',{ 
-                "amount": amount.toString(), 
-                "currency": currency.toString(), 
-                "error_url": error_url.toString(), 
-                "success_url": success_url.toString()
-            }, { headers: headers });
-            return response;
+            const response = await axios.post('https://api.wave.com/v1/checkout/sessions', payementDto , { headers: headers });
+            return JSON.stringify(response.data);
         } catch (error) {
             // Gérez les erreurs ici
             throw new Error('Erreur lors de la requête HTTP : ' + error.message);
