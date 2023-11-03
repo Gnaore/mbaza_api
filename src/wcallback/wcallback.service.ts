@@ -10,20 +10,25 @@ export class WcallbackService {
     // Dans votre service ou contrôleur
     async payementParTiers(payementDto: PayementDto) {
         const currentAPI = "wave_ci_prod_PA5WLkmrmQFnB4KFiW4MIZNVIN51qM86Lhctic9fGunvsA2ddFpMqXKEnVpMFmTLomFwOeBpWnWmmp2DlTyEYBhCEXhQrtX3ig";
+        const { amount, currency, error_url, success_url } = payementDto
+        try {
+            const headers = {
+                // Les en-têtes que vous souhaitez inclure dans la requête POST
+                Authorization: `Bearer ${currentAPI.toString()}`,
+                // 'Content-Type': 'application/json', // Exemple d'en-tête de type de contenu
+            };
 
-        // try {
-        const headers = {
-            // Les en-têtes que vous souhaitez inclure dans la requête POST
-            Authorization: `Bearer ${currentAPI.toString()}`,
-            // 'Content-Type': 'application/json', // Exemple d'en-tête de type de contenu
-        };
-
-        const response = await axios.post('https://api.wave.com/v1/checkout/sessions', { body: payementDto }, { headers: headers });
-        return response;
-        /*  } catch (error) {
-              // Gérez les erreurs ici
-              throw new Error('Erreur lors de la requête HTTP : ' + error.message);
-          }*/
+            const response = await axios.post('https://api.wave.com/v1/checkout/sessions',{ 
+                "amount": amount.toString(), 
+                "currency": currency.toString(), 
+                "error_url": error_url.toString(), 
+                "success_url": success_url.toString()
+            }, { headers: headers });
+            return response;
+        } catch (error) {
+            // Gérez les erreurs ici
+            throw new Error('Erreur lors de la requête HTTP : ' + error.message);
+        }
     }
 
 }
