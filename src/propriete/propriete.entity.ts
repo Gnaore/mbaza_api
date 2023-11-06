@@ -2,7 +2,8 @@ import { type } from "os";
 import { BailleurEntity } from "src/bailleur/bailleur.entity";
 import { LocataireEntity } from "src/locataire/locataire.entity";
 import { TypebienEntity } from "src/typebien/typebien.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { WcallbackEntity } from "src/wcallback/wcallback.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Propriete')
 export class ProprieteEntity {
@@ -73,10 +74,13 @@ export class ProprieteEntity {
         )
     locataire: LocataireEntity
 
-}
-/*
-model Propriete {
-  locataire                  Locataire?
-}
+    @OneToMany(
+        type => WcallbackEntity,
+        (wcallback) => wcallback.propriete,
+        {
+            cascade: true
+        }
+    )
+    wcallbacks: WcallbackEntity[];
 
-*/
+}

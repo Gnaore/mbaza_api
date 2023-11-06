@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class PayementDto {
+export class PayementWaveDto {
   @IsNotEmpty()
   readonly amount: string;
   @IsNotEmpty()
@@ -9,8 +9,4 @@ export class PayementDto {
   readonly error_url: string;
   @IsNotEmpty()
   readonly success_url: string;
-  @IsNotEmpty()
-  readonly proprieteId: number;
-  @IsNotEmpty()
-  readonly locataireRef: string;
 }

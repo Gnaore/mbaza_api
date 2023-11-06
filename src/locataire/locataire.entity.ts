@@ -2,7 +2,8 @@ import { IsNotEmpty } from "class-validator";
 import { type } from "os";
 import { BailleurEntity } from "src/bailleur/bailleur.entity";
 import { ProprieteEntity } from "src/propriete/propriete.entity";
-import { Column, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { WcallbackEntity } from "src/wcallback/wcallback.entity";
+import { Column, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Locataire')
 export class LocataireEntity {
@@ -11,6 +12,7 @@ export class LocataireEntity {
     @IsNotEmpty()
     @Column({ length: 65 })
     @Index({ unique: true })
+    @JoinColumn()
     locataireRef: string
     @IsNotEmpty()
     @Column()
@@ -66,4 +68,6 @@ export class LocataireEntity {
         bailleur => bailleur.locataires
     )
     bailleur: BailleurEntity
+
+
 }
