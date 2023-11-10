@@ -1,7 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 export class AjoutLocataireDto {
   readonly locataireId: number;
-  @IsNotEmpty()
   readonly locataireRef: string;
   @IsNotEmpty()
   readonly locataireNom: string;

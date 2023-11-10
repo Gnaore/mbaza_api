@@ -4,6 +4,7 @@ import { TimestampEntities } from "src/generics/timestampEmtities";
 import { LocataireEntity } from "src/locataire/locataire.entity";
 import { ProprieteEntity } from "src/propriete/propriete.entity";
 import { UserEntity } from "src/user/user.entity";
+import { WcallbackEntity } from "src/wcallback/wcallback.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Bailleur')
@@ -68,5 +69,14 @@ export class BailleurEntity extends TimestampEntities {
         }
     )
     locataires: LocataireEntity[];
+
+    @OneToMany(
+        type => WcallbackEntity,
+        (wcallback) => wcallback.bailleur,
+        {
+            cascade: true
+        }
+    )
+    wcallbacks: WcallbackEntity[];
 
 }

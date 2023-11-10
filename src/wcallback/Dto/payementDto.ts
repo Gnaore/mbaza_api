@@ -13,4 +13,6 @@ export class PayementDto {
   readonly proprieteId: number;
   @IsNotEmpty()
   readonly locataireRef: string;
+  @IsNotEmpty()
+  readonly mois: string;
 }

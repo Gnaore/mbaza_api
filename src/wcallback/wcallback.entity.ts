@@ -1,3 +1,5 @@
+import { type } from "os";
+import { BailleurEntity } from "src/bailleur/bailleur.entity";
 import { LocataireEntity } from "src/locataire/locataire.entity";
 import { ProprieteEntity } from "src/propriete/propriete.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -29,11 +31,19 @@ export class WcallbackEntity {
     @Column({length: 65})
     @JoinColumn()
     locataireRef: string
+    @Column({ length: 65 })
+    loyer_mois: string
 
     @ManyToOne(
         type => ProprieteEntity,
         (propriete) => propriete.wcallbacks,
     )
     propriete: ProprieteEntity;
+
+    @ManyToOne(
+        type => BailleurEntity,
+        (bailleur) => bailleur.wcallbacks, 
+    )
+    bailleur: BailleurEntity
 
 }

@@ -7,6 +7,7 @@ import { ProprieteService } from 'src/propriete/propriete.service';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PayementWaveDto } from './Dto/payementWaveDto';
+import { BailleurService } from 'src/bailleur/bailleur.service';
 
 
 @Injectable()
@@ -15,14 +16,14 @@ export class WcallbackService {
     constructor(
         @InjectRepository(WcallbackEntity)
         private wcallbackRepository: Repository<WcallbackEntity>,
-        private proprieteService: ProprieteService,
+        private proprieteService: ProprieteService
     ) { }
 
 
     // Dans votre service ou contrôleur
     async payementParTiers(payementDto: PayementDto) {
         const currentAPI = "wave_ci_prod_PA5WLkmrmQFnB4KFiW4MIZNVIN51qM86Lhctic9fGunvsA2ddFpMqXKEnVpMFmTLomFwOeBpWnWmmp2DlTyEYBhCEXhQrtX3ig";
-        const { amount, currency, error_url, success_url, proprieteId, locataireRef } = payementDto
+        const { amount, currency, error_url, success_url, proprieteId, locataireRef, mois } = payementDto
         let dataPayement = new PayementWaveDto
         dataPayement = { amount, currency, error_url, success_url }
         try {
@@ -52,7 +53,9 @@ export class WcallbackService {
                     when_expires: response.data.when_expires,
                     locataireRef: locataireRef,
                     propriete: payPropiete.data,
-                    idWaveCallback: ""
+                    idWaveCallback: "",
+                    loyer_mois: mois,
+                    bailleur: payPropiete.data.bailleur
                 }
 
                 const ret = await this.wcallbackRepository.save(payement);
@@ -100,66 +103,3 @@ export class WcallbackService {
     }
 
 }
-
-/*
-async ajouteLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
-    const {
-        locataireId,
-        locataireBanque,
-        locataireDatenais,
-        locataireEmail,
-        locataireEmailgarant,
-        locataireNationalite,
-        locataireNbrecharge,
-        locataireNom,
-        locataireNomgarant,
-        locatairePhoto,
-        locataireProfession,
-        locataireRef,
-        locataireSalaire,
-        locataireSituationmatri,
-        locataireTel,
-        locataireTelgarant,
-        locataireTypecontrat,
-        bailleurId,
-        proprieteCode
-    } = ajoutLocataireDto;
-
-    //Creation de la reference
-    const index = locataireNom.substring(0, 2);
-    const codeotp = speakeasy.totp({
-        secret: this.configService.get('OTP_CODE'),
-        digits: 6,
-        encoding: 'base32',
-    });
-    const reference = codeotp + index;
-
-    //Ajout à la base
-    const bail = await this.bailleurService.getOne(userId, bailleurId)
-    const prop = await this.proprieteService.getOneByCode(userId, proprieteCode)
-
-    let locataireE = new LocataireEntity
-    locataireE = {
-        locataireId: undefined,
-        locataireBanque,
-        locataireDatenais,
-        locataireEmail,
-        locataireEmailgarant,
-        locataireNationalite,
-        locataireNbrecharge,
-        locataireNom,
-        locataireNomgarant,
-        locatairePhoto,
-        locataireProfession,
-        locataireRef: reference,
-        locataireSalaire,
-        locataireSituationmatri,
-        locataireTel,
-        locataireTelgarant,
-        locataireTypecontrat,
-        bailleur: bail.data,
-        propriete: prop.data
-    }
-    const ret = await this.locataireRepository.save(locataireE);
-    return { data: ret };
-}*/

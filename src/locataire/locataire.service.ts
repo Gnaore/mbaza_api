@@ -22,17 +22,17 @@ export class LocataireService {
     ) { }
 
 
- /*   async getlocatairesbyBailleur(userId: any, bailleurId: number) {
-        const RetB = await this.bailleurService.getOne(userId, bailleurId)
-
-        const ret = await this.locataireRepository.find(
-            {
-                relations: {propriete: true},
-                where: {bailleur: RetB.data}
-            }
-            );
-        return { data: RetB };
-    }*/
+    /*   async getlocatairesbyBailleur(userId: any, bailleurId: number) {
+           const RetB = await this.bailleurService.getOne(userId, bailleurId)
+   
+           const ret = await this.locataireRepository.find(
+               {
+                   relations: {propriete: true},
+                   where: {bailleur: RetB.data}
+               }
+               );
+           return { data: RetB };
+       }*/
 
     async getAll() {
         const ret = await this.locataireRepository.find({
@@ -40,18 +40,18 @@ export class LocataireService {
                 bailleur: true,
                 propriete: true,
             },
-            order: 
-                {
-                    locataireNom: 'ASC',
-                },
-            
+            order:
+            {
+                locataireNom: 'ASC',
+            },
+
         });
         return { data: ret };
     }
 
     async getOne(userId: number, locataireId: number) {
         const ret = await this.locataireRepository.findOne({
-            relations: {bailleur: true, propriete: true},
+            relations: { bailleur: true, propriete: true },
             where: { locataireId },
         });
         return { data: ret };
@@ -59,12 +59,12 @@ export class LocataireService {
 
     async getOneByReference(ref: string) {
         const ret = await this.locataireRepository.findOne({
-            relations: {bailleur: true, propriete: true},
+            relations: { bailleur: true, propriete: true },
             where: { locataireRef: ref },
         });
         return { data: ret };
     }
-    
+
 
 
     async ajouteLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
@@ -100,8 +100,8 @@ export class LocataireService {
         const reference = codeotp + index;
 
         //Ajout à la base
-const bail = await this.bailleurService.getOne(userId, bailleurId)
-const prop = await this.proprieteService.getOneByCode(userId, proprieteCode)
+        const bail = await this.bailleurService.getOne(userId, bailleurId)
+        const prop = await this.proprieteService.getOneByCode(userId, proprieteCode)
 
         let locataireE = new LocataireEntity
         locataireE = {
@@ -126,34 +126,15 @@ const prop = await this.proprieteService.getOneByCode(userId, proprieteCode)
             propriete: prop.data
         }
         const ret = await this.locataireRepository.save(locataireE);
+        if (ret) {
+            const proploe = this.proprieteService.modifiProprieteloue(proprieteCode)
+        }
         return { data: ret };
     }
-/*
-    async modifiLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
-        const {
-            locataireId,
-            locataireBanque,
-            locataireDatenais,
-            locataireEmail,
-            locataireEmailgarant,
-            locataireNationalite,
-            locataireNbrecharge,
-            locataireNom,
-            locataireNomgarant,
-            locatairePhoto,
-            locataireProfession,
-            locataireRef,
-            locataireSalaire,
-            locataireSituationmatri,
-            locataireTel,
-            locataireTelgarant,
-            locataireTypecontrat,
-            bailleurId,
-            proprieteCode
-        } = ajoutLocataireDto;
-        const ret = await this.prismaService.locataire.update({
-            where: { locataireId },
-            data: {
+    /*
+        async modifiLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
+            const {
+                locataireId,
                 locataireBanque,
                 locataireDatenais,
                 locataireEmail,
@@ -172,20 +153,42 @@ const prop = await this.proprieteService.getOneByCode(userId, proprieteCode)
                 locataireTypecontrat,
                 bailleurId,
                 proprieteCode
-            },
-        });
-        return { data: ret };
-    }
-
-    async supone(userId: any, locataireId: number) {
-        const ret = await this.prismaService.locataire.delete({
-            where: { locataireId },
-        });
-        return { data: ret };
-    }
-
-
-
-
-    */
+            } = ajoutLocataireDto;
+            const ret = await this.prismaService.locataire.update({
+                where: { locataireId },
+                data: {
+                    locataireBanque,
+                    locataireDatenais,
+                    locataireEmail,
+                    locataireEmailgarant,
+                    locataireNationalite,
+                    locataireNbrecharge,
+                    locataireNom,
+                    locataireNomgarant,
+                    locatairePhoto,
+                    locataireProfession,
+                    locataireRef,
+                    locataireSalaire,
+                    locataireSituationmatri,
+                    locataireTel,
+                    locataireTelgarant,
+                    locataireTypecontrat,
+                    bailleurId,
+                    proprieteCode
+                },
+            });
+            return { data: ret };
+        }
+    
+        async supone(userId: any, locataireId: number) {
+            const ret = await this.prismaService.locataire.delete({
+                where: { locataireId },
+            });
+            return { data: ret };
+        }
+    
+    
+    
+    
+        */
 }
