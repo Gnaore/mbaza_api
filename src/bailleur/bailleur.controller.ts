@@ -73,4 +73,14 @@ export class BailleurController {
     const userId = request.user['userId'];
     return this.bailleurService.supone(userId, bailleurId);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('allpayementbyBailleur/:id')
+  allpayementbyBailleur(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) bailleurId: number,) {
+    const userId = request.user['userId'];
+    return this.bailleurService.getAllpayementbyBailleur(userId, bailleurId);
+  }
+  
 }

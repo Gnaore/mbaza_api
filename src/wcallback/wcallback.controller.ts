@@ -14,6 +14,8 @@ import { PayementDto } from './Dto/payementDto';
 import { WcallbackService } from './wcallback.service';
 import { CallbackDto } from './Dto/callbackDto';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+
 
 @Controller('wcallback')
 export class WcallbackController {
@@ -37,15 +39,14 @@ export class WcallbackController {
     return this.wcallbackService.payementParTiers(payementDto);
   }
 
-  /*@UseGuards(AuthGuard('jwt'))
-  @Get('paiementByBailleur/:id')
-  getAllpropbyBailleur(
-    @Param('id', ParseIntPipe) bailleurId: number,
+  @UseGuards(AuthGuard('jwt'))
+  @Get('allPayement')
+  getAllpayement(
     @Req() request: Request,
   ) {
     const userId = request.user['userId'];
-    return this.proprieteService.getAllpropbyBailleur(userId, bailleurId);
-  }*/
+    return this.wcallbackService.getAllpayement();
+  }
   
 
 }

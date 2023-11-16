@@ -16,6 +16,7 @@ export class WcallbackService {
     constructor(
         @InjectRepository(WcallbackEntity)
         private wcallbackRepository: Repository<WcallbackEntity>,
+        private bailleurService: BailleurService,
         private proprieteService: ProprieteService
     ) { }
 
@@ -100,6 +101,14 @@ export class WcallbackService {
 
         return { data: ret }
 
+    }
+
+    async getAllpayement() {
+        const ret = await this.wcallbackRepository.find(
+            {
+                relations: {  bailleur: true, propriete: true},
+            });
+        return { data: ret };
     }
 
 }

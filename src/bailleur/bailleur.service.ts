@@ -29,8 +29,27 @@ export class BailleurService {
       relations: {
         banque: true,
         proprietes: true,
-        locataires: true
+        locataires: {
+          propriete: true
+        }
       }
+    });
+    return { data: ret };
+  }
+
+  async getAllpayementbyBailleur(userId: number, bailleurId: number) {
+    const ret = await this.bailleurRepository.find(
+        {
+            relations: {  wcallbacks: true, proprietes: true, locataires: true},
+            where: {bailleurId: bailleurId}
+        });
+    return { data: ret };
+}
+
+
+  async getOneSimple(userId: number, bailleurId: number) {
+    const ret = await this.bailleurRepository.findOne({
+      where: { bailleurId },
     });
     return { data: ret };
   }
