@@ -13,7 +13,8 @@ export class TypebienEntity {
         type => ProprieteEntity,
         (propriete) => propriete.typebien,
         {
-            cascade: true
+            cascade: true,
+            nullable: true
         }
     )
     proprietes: ProprieteEntity[];
@@ -22,7 +23,8 @@ export class TypebienEntity {
         type => BienEntity,
         (bien) => bien.typebien,
         {
-            cascade: true
+            cascade: true,
+            nullable: true
         }
     )
     biens: BienEntity[]

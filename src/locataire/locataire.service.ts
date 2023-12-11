@@ -56,6 +56,14 @@ export class LocataireService {
         });
         return { data: ret };
     }
+    
+    async getlocatairesbyBailleur(userId: number, bailleurId: number) {
+        const ret = await this.locataireRepository.find({
+            relations: { bailleur: true},
+            where: { bailleur: { bailleurId} },
+        });
+        return { data: ret };
+    }
 
     async getOneByReference(ref: string) {
         const ret = await this.locataireRepository.findOne({
@@ -65,7 +73,17 @@ export class LocataireService {
         return { data: ret };
     }
 
+    async getOneByEmail(email: string) {
+        const ret = await this.locataireRepository.findOne({
+            relations: { bailleur: true, propriete: {
+                typebien: true
+            } },
+            where: { locataireEmail: email },
+        });
+        return { data: ret };
+    }
 
+    
 
     async ajouteLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
         const {
@@ -123,7 +141,10 @@ export class LocataireService {
             locataireTelgarant,
             locataireTypecontrat,
             bailleur: bail.data,
-            propriete: prop.data
+            propriete: prop.data,
+            createdAt:undefined,
+            deletedAt:undefined,
+            updatedAt:undefined
         }
         const ret = await this.locataireRepository.save(locataireE);
         if (ret) {

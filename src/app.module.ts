@@ -18,6 +18,7 @@ import { UserModule } from './user/user.module';
 import * as dotenv from 'dotenv';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MsgModule } from './msg/msg.module';
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ dotenv.config();
     WcallbackModule,
     LocataireModule,
     UserModule,
+    MsgModule,
   ],
   controllers: [AppController],
   providers: [AppService],

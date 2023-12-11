@@ -1,12 +1,13 @@
 import { IsNotEmpty } from "class-validator";
 import { type } from "os";
 import { BailleurEntity } from "src/bailleur/bailleur.entity";
+import { TimestampEntities } from "src/generics/timestampEmtities";
+import { MsgEntity } from "src/msg/msg.entity";
 import { ProprieteEntity } from "src/propriete/propriete.entity";
-import { WcallbackEntity } from "src/wcallback/wcallback.entity";
 import { Column, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Locataire')
-export class LocataireEntity {
+export class LocataireEntity extends TimestampEntities {
     @PrimaryGeneratedColumn()
     locataireId: number
     @IsNotEmpty()
@@ -26,7 +27,7 @@ export class LocataireEntity {
     @IsNotEmpty()
     @Column({ length: 65 })
     locataireTel: string
-
+    @IsNotEmpty()
     @Column({ length: 225 })
     locataireEmail: string
     @IsNotEmpty()
@@ -65,9 +66,10 @@ export class LocataireEntity {
 
     @ManyToOne(
         type => BailleurEntity,
-        bailleur => bailleur.locataires
+        (bailleur) => bailleur.locataires
     )
     bailleur: BailleurEntity
+
 
 
 }

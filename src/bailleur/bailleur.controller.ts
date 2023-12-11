@@ -38,6 +38,16 @@ export class BailleurController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @Get('/includePropr/:id')
+  getOneIncluderop(
+    @Param('id', ParseIntPipe) bailleurId: number,
+    @Req() request: Request,
+  ) {
+    const userId = request.user['userId'];
+    return this.bailleurService.getOneIncludeLocataire(userId, bailleurId);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Get('web/:id')
   getOneByUserId(@Req() request: Request) {
     const userId = request.user['userId'];

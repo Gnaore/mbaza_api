@@ -29,6 +29,20 @@ export class BailleurService {
       relations: {
         banque: true,
         proprietes: true,
+       /* locataires: {
+          propriete: true
+        }*/
+      }
+    });
+    return { data: ret };
+  }
+
+  async getOneIncludeLocataire(userId: number, bailleurId: number) {
+    const ret = await this.bailleurRepository.findOne({
+      where: { bailleurId },
+      relations: {
+        banque: true,
+        proprietes: true,
         locataires: {
           propriete: true
         }
