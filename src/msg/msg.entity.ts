@@ -1,5 +1,6 @@
 import { TimestampEntities } from "src/generics/timestampEmtities";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { LocataireEntity } from "src/locataire/locataire.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Msg')
 export class MsgEntity extends TimestampEntities{
@@ -17,4 +18,8 @@ export class MsgEntity extends TimestampEntities{
     expediteurId: number
     @Column()
     destinataireId: number
+    @Column()
+    msgLienpj: string
+    
 }
+

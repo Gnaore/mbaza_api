@@ -8,5 +8,5 @@ export class AjoutMsgDto {
   readonly expediteurId: number;
   @IsNotEmpty()
   readonly destinataireId: number;
-
+  readonly msgLienpj: string;
 }
