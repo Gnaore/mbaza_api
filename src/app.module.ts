@@ -18,11 +18,16 @@ import { UserModule } from './user/user.module';
 import * as dotenv from 'dotenv';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MsgModule } from './msg/msg.module';
+import { DataSource } from 'typeorm';
 
 dotenv.config();
 
+
+
 @Module({
   imports: [
+    
     TypeOrmModule.forRoot({
       type: 'mariadb',
       host: process.env.DB_HOST,
@@ -33,6 +38,7 @@ dotenv.config();
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
+    
     ConfigModule.forRoot({ isGlobal: true }), //Pour utiliser les variables d'environnement
     BanqueModule,
     MailerModule,
@@ -49,6 +55,7 @@ dotenv.config();
     WcallbackModule,
     LocataireModule,
     UserModule,
+    MsgModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -40,13 +40,18 @@ export class LocataireController {
     return this.locataireService.getOneByReference(ref);
   }
 
-/*
+    @Get('email/:id')
+  getOneByEmail(@Param('id') ref: string) {
+    return this.locataireService.getOneByEmail(ref);
+  }
+
+
   @UseGuards(AuthGuard('jwt'))
   @Get('bailleur/:id')
   getbyBailleur(@Param('id', ParseIntPipe) bailleurId: number, @Req() request: Request) {
     const userId = request.user['userId'];
     return this.locataireService.getlocatairesbyBailleur(userId, bailleurId);
-  }*/
+  }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('create')

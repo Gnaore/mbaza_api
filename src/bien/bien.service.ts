@@ -126,6 +126,7 @@ export class BienService {
   async getOne(userId: number, bienId: number) {
     const ret = await this.bienRepository.findOne({
       where: { bienId },
+      relations: {typebien: true}
     });
     return { data: ret };
   }

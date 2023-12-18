@@ -164,6 +164,15 @@ export class ProprieteService {
     return { data: ret };
   }
 
+  async modifiProprieteloue(proprieteCode: string) {
+    const ret = await this.proprieteRepository.update({proprieteCode},
+      {
+       proprieteStatu: "Loue"
+     }
+    );
+    return { data: ret };
+  }
+
   async ajoutePropriete(userId: number, ajoutProprieteDto: AjoutProprieteDto) {
     const {
       proprieteAdresse,
@@ -233,4 +242,5 @@ export class ProprieteService {
     });
     return { data: ret };
   }
+
 }

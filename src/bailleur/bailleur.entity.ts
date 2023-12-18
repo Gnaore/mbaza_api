@@ -2,8 +2,10 @@ import { type } from "os";
 import { BanqueEntity } from "src/banque/banque.entity";
 import { TimestampEntities } from "src/generics/timestampEmtities";
 import { LocataireEntity } from "src/locataire/locataire.entity";
+import { MsgEntity } from "src/msg/msg.entity";
 import { ProprieteEntity } from "src/propriete/propriete.entity";
 import { UserEntity } from "src/user/user.entity";
+import { WcallbackEntity } from "src/wcallback/wcallback.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Bailleur')
@@ -45,11 +47,13 @@ export class BailleurEntity extends TimestampEntities {
     )
     banque: BanqueEntity;
 
+  
     @OneToMany(
         type => ProprieteEntity,
         (propriete) => propriete.bailleur,
         {
-            cascade: true
+            cascade: true,
+            nullable: true
         }
     )
     proprietes: ProprieteEntity[];
@@ -64,9 +68,20 @@ export class BailleurEntity extends TimestampEntities {
         type => LocataireEntity,
         (locataire) => locataire.bailleur,
         {
-            cascade: true
+            cascade: true,
+            nullable: true
         }
     )
     locataires: LocataireEntity[];
+
+    @OneToMany(
+        type => WcallbackEntity,
+        (wcallback) => wcallback.bailleur,
+        {
+            cascade: true,
+            nullable: true
+        }
+    )
+    wcallbacks: WcallbackEntity[];
 
 }
