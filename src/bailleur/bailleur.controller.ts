@@ -93,4 +93,12 @@ export class BailleurController {
     return this.bailleurService.getAllpayementbyBailleur(userId, bailleurId);
   }
   
+  @UseGuards(AuthGuard('jwt'))
+  @Get('allpayementbyCodeBailleur/:id')
+  allpayementbyCodeBailleur(
+    @Req() request: Request,
+    @Param('id') bailleurCode: string,) {
+    const userId = request.user['userId'];
+    return this.bailleurService.getAllpayementbyCodeBailleur(userId, bailleurCode);
+  }
 }

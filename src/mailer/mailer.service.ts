@@ -34,8 +34,9 @@ export class MailerService {
     (await this.transporter()).sendMail({
       from: 'notificationrti@rti.ci',
       to: userEmail,
-      subject: "Confirmation d'inscription au concour",
-      html: '<h3>Votre inscription a été pris en compte, votre mot de passe est : </h3>' + password ,
+      subject: "Ouverture de compte M'baaza",
+      html: 'Bonjour cher abonné Mbaaza ! <hr> Votre compte vient d\'être créé avec succès. Pour accéder à votre espace bailleur, veuillez cliquer sur le lien suivant : <a href="">Accéder à mon espace</a>. Ci-dessous, vos identifiants de connexion : <hr> E-mail : <b>' + userEmail + ' </b>. <hr> Mot de passe : <b>' + password + ' </b>.Veuillez procéder à la modification de votre mot de passe après la première connexion. L\'équipe de Mbaaza vous remercie pour votre confiance. '  ,
+       
     });
   }
 

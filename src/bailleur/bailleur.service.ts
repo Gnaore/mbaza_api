@@ -60,6 +60,14 @@ export class BailleurService {
     return { data: ret };
 }
 
+async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
+  const ret = await this.bailleurRepository.find(
+      {
+          relations: {  wcallbacks: true, proprietes: true, locataires: true},
+          where: {bailleurNumero: bailleurCode}
+      });
+  return { data: ret };
+}
 
   async getOneSimple(userId: number, bailleurId: number) {
     const ret = await this.bailleurRepository.findOne({
