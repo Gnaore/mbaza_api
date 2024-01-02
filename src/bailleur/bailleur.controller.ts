@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -94,11 +95,11 @@ export class BailleurController {
   }
   
   @UseGuards(AuthGuard('jwt'))
-  @Get('allpayementbyCodeBailleur/:id')
-  allpayementbyCodeBailleur(
+  @Get('allpayementbyCodeBailleur/:params')
+  allpayementbyCodeBailleur(  
     @Req() request: Request,
-    @Param('id') bailleurCode: string,) {
+    @Param('params') params: string)  {
     const userId = request.user['userId'];
-    return this.bailleurService.getAllpayementbyCodeBailleur(userId, bailleurCode);
+    return this.bailleurService.getAllpayementbyCodeBailleur(userId, params);
   }
 }
