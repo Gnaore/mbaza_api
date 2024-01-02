@@ -79,7 +79,7 @@ export class MsgService {
              const appDataSource = await AppDataSource.initialize();
             const queryRunner = await appDataSource.createQueryRunner();
             var ret = await queryRunner.manager.query(
-                "SELECT * FROM Msg LEFT JOIN Locataire ON Msg.destinataireId = Locataire.locataireId WHERE Msg.expediteurId = " + expediteurId
+                "SELECT * FROM Msg LEFT JOIN Bailleur ON Msg.destinataireId = Bailleur.bailleurId WHERE expediteurId = " + expediteurId
             );
             return { data: ret };
         }
@@ -96,7 +96,7 @@ export class MsgService {
             const appDataSource = await AppDataSource.initialize();
             const queryRunner = await appDataSource.createQueryRunner();
             var ret = await queryRunner.manager.query(
-                "SELECT * FROM Msg LEFT JOIN Locataire ON Msg.expediteurId = Locataire.locataireId WHERE Msg.destinataireId = " + destinataireId
+                "SELECT * FROM `Msg` LEFT JOIN Bailleur ON Msg.expediteurId = Bailleur.bailleurId WHERE `destinataireId` = " + destinataireId
             );
             return { data: ret };
         }

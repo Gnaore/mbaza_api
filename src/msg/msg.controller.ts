@@ -16,7 +16,7 @@ export class MsgController {
     const userId = request.user['userId'];
     return this.msgService.allMsg();
   }
-
+//Bailleur
   @UseGuards(AuthGuard('jwt'))
   @Get('envoye/:id')
   getAllMsgEnvoye(@Param('id', ParseIntPipe) expediteurId: number, @Req() request: Request) {
@@ -30,6 +30,24 @@ export class MsgController {
     const userId = request.user['userId'];
     return this.msgService.allMsgRecu(userId, destinataireId);
   }
+//Fin Bailleur
+
+//Locataire
+@UseGuards(AuthGuard('jwt'))
+@Get('envoyeloc/:id')
+getAllMsgEnvoyeloc(@Param('id', ParseIntPipe) expediteurId: number, @Req() request: Request) {
+  const userId = request.user['userId'];
+  return this.msgService.allMsgEnvoyeLocatire(userId, expediteurId);
+}
+
+@UseGuards(AuthGuard('jwt'))
+@Get('reculoc/:id')
+getAllMsgReculoc(@Param('id', ParseIntPipe) destinataireId: number, @Req() request: Request) {
+  const userId = request.user['userId'];
+  return this.msgService.allMsgRecuLocatire(userId, destinataireId);
+}
+// Fin Locataire
+
 
   @UseGuards(AuthGuard('jwt'))
   @Post('create')
