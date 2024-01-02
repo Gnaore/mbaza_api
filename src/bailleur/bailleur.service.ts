@@ -89,7 +89,8 @@ var ret = await queryRunner.manager.query(
 );
 return { data: ret};
 }
-/*async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
+/*
+async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
   const ret = await this.bailleurRepository.find(
       {
           relations: {  wcallbacks: true, proprietes: true, locataires: true},
