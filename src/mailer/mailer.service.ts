@@ -35,8 +35,7 @@ export class MailerService {
       from: 'notificationrti@rti.ci',
       to: userEmail,
       subject: "Ouverture de compte M'baaza",
-      html: 'Bonjour cher abonné Mbaaza ! <hr> Votre compte vient d\'être créé avec succès. Pour accéder à votre espace bailleur, veuillez cliquer sur le lien suivant : <a href="">Accéder à mon espace</a>. Ci-dessous, vos identifiants de connexion : <hr> E-mail : <b>' + userEmail + ' </b>. <hr> Mot de passe : <b>' + password + ' </b>.Veuillez procéder à la modification de votre mot de passe après la première connexion. L\'équipe de Mbaaza vous remercie pour votre confiance. '  ,
-       
+      html: '<center><img src="img/logo.png" width="100" alt=""></center> <br><br> Bonjour cher abonné Mbaaza ! <br> Votre compte vient d\'être créé avec succès. Pour accéder à votre espace bailleur, veuillez cliquer sur le lien suivant : <a href="http://localhost:4200">Accéder à mon espace</a>. Ci-dessous, vos identifiants de connexion : <br> E-mail : <b>' + userEmail + ' </b>. <br> Mot de passe : <b>' + password + ' </b><br>Veuillez procéder à la modification de votre mot de passe après la première connexion. L\'équipe de Mbaaza vous remercie pour votre confiance.',
     });
   }
 
