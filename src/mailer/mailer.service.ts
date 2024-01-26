@@ -48,7 +48,7 @@ export class MailerService {
   async sendSignupConfirmation(userEmail: string, password: string) {
     this.verificnx();
     (await this.transporter()).sendMail({
-      from: "notificationrti@rti.ci",
+      from: "mbazaservice@outlook.com",
       to: userEmail,
       subject: "Ouverture de compte M'baaza User",
       html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
@@ -258,7 +258,7 @@ export class MailerService {
     async sendSignupConfirmationBailleur(userEmail: string, password: string) {
       this.verificnx();
       (await this.transporter()).sendMail({
-        from: "notificationrti@rti.ci",
+        from: "mbazaservice@outlook.com",
         to: userEmail,
         subject: "Ouverture de compte M'baaza Bailleur",
         html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
@@ -471,7 +471,7 @@ export class MailerService {
       const lien =  AppService.urlg + locataireQrcode;
        
       (await this.transporter()).sendMail({
-        from: "notificationrti@rti.ci",
+        from: "mbazaservice@outlook.com",
         to: userEmail,
         subject: "Ouverture de compte M'baaza Locataire",
         html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
@@ -687,7 +687,7 @@ export class MailerService {
   ) {
     this.verificnx();
     (await this.transporter()).sendMail({
-      from: 'notificationrti@rti.ci',
+      from: 'mbazaservice@outlook.com',
       to: userEmail,
       subject: 'Demande de réinitialisation de mot de passe',
       html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
