@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World!';
+    return 'Hello World! Tout ce passe Bien';
   }
     //**en dev mac
     //static urlg = 'http://localhost:3000/'
