@@ -25,7 +25,7 @@ export class MailerService {
         host: 'mail.mbaaza.com',
         //port: 587,
         port: 465,
-        secure: false, //tls
+        secure: true, //tls
         auth: {
           user: 'info@mbaaza.com',
           pass: 'Xpr!2kIP',
