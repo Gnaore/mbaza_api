@@ -6,9 +6,9 @@ export class AppService {
     return 'Hello World!';
   }
     //**en dev mac
-    static urlg = 'http://localhost:3000/'
+    //static urlg = 'http://localhost:3000/'
 
     //EN PROD
-    // urlg = 'https://mbaza-eb3d8ec0412e.herokuapp.com/'
+    static urlg = 'https://mbaza-eb3d8ec0412e.herokuapp.com/'
   
 }

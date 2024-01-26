@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SignupDto } from './Dto/signupDto';
-import * as bcrypt from 'bcrypt';
+//import * as bcrypt from 'bcrypt';
 import { MailerService } from 'src/mailer/mailer.service';
 import { SigninDto } from './Dto/signinDto';
 import { ConfigService } from '@nestjs/config';
@@ -14,6 +14,7 @@ import { ResetPasswordConfirmationDto } from './Dto/resetPasswordConfirmationDto
 import { ModifUserDto } from './Dto/modifUserDto';
 import { ModifStatutUserDto } from './Dto/modifStatutUserDto';
 import { DeleteAccountDto } from './Dto/deleteAccountDto';
+var bcrypt = require('bcryptjs');
 
 @Injectable()
 export class UserService {
