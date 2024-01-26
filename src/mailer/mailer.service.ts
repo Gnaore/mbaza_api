@@ -22,12 +22,12 @@ export class MailerService {
     //Methode pour configurer le transporter
     private async transporter() {
       const transport = nodemailer.createTransport({
-        host: 'smtp.office365.com',
+        host: "smtp.office365.com",
         port: 587,
         secure: false, //tls
         auth: {
-          user: 'mbazaservice@outlook.com',
-          pass: 'Xpr!2kIP',
+          user: "mbazaservice@outlook.com",
+          pass: "Xpr!2kIP",
         },
       });
       return transport;
@@ -37,7 +37,7 @@ export class MailerService {
   async verificnx() {
     (await this.transporter()).transporter.verify(function (error, success) {
       if (error) {
-        console.log(error);
+        console.log("PROBLEME AU NIVEAU DE L'ENVOI " + error);
       } else {
         console.log('Server is ready to take our messages');
       }
