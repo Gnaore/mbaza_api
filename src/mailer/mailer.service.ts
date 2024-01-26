@@ -7,7 +7,7 @@ export class MailerService {
 
 
   //Methode pour configurer le transporter
-  private async transporter() {
+ /* private async transporter() {
     const transport = nodemailer.createTransport({
       host: 'smtp.office365.com',
       port: 587,
@@ -18,7 +18,21 @@ export class MailerService {
       },
     });
     return transport;
-  }
+  }*/
+    //Methode pour configurer le transporter
+    private async transporter() {
+      const transport = nodemailer.createTransport({
+        host: 'mail.mbaaza.com',
+        //port: 587,
+        port: 465,
+        secure: false, //tls
+        auth: {
+          user: 'info@mbaaza.com',
+          pass: 'Xpr!2kIP',
+        },
+      });
+      return transport;
+    }
 
   // Pour debuguer le transporter
   async verificnx() {
