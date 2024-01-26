@@ -22,12 +22,11 @@ export class MailerService {
     //Methode pour configurer le transporter
     private async transporter() {
       const transport = nodemailer.createTransport({
-        host: 'mail.mbaaza.com',
-        //port: 587,
-        port: 465,
-        secure: true, //tls
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false, //tls
         auth: {
-          user: 'info@mbaaza.com',
+          user: 'mbazaservice@outlook.com',
           pass: 'Xpr!2kIP',
         },
       });
