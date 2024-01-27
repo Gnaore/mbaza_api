@@ -696,7 +696,7 @@ export class MailerService {
       "  <meta charset='UTF-8'>"+
       "  <meta content='width=device-width, initial-scale=1' name='viewport'>"+
       "  <meta content='telephone=no' name='format-detection'>"+
-      "  <title>Courrier Bailleur</title><!--[if (mso 16)]>"+
+      "  <title>Courrier Réinitialisation de mot de passe</title><!--[if (mso 16)]>"+
       "    <style type='text/css'>"+
       "    a {text-decoration: none;}"+
       "    </style>"+
@@ -817,13 +817,13 @@ export class MailerService {
      "                       </table></td>"+
      "                     </tr>"+
      "                     <tr style='border-collapse:collapse'>"+
-     "                      <td align='left' style='padding:0;Margin:0;padding-bottom:10px'><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:24px;color:#666666;font-size:16px'>Cher bailleur,</p></td>"+
+     "                      <td align='left' style='padding:0;Margin:0;padding-bottom:10px'><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:24px;color:#666666;font-size:16px'>Salut,</p></td>"+
      "                     </tr>"+
      "                     <tr style='border-collapse:collapse'>"+
-     "                      <td align='left' style='padding:0;Margin:0'><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'> Nous avons reçu une demande de reinitialisation de votre mot de passe"+
+     "                      <td align='left' style='padding:0;Margin:0'><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'> Nous avons reçu une demande de réinitialisation de votre mot de passe"+
      "                      </tr>"+
      "                      <tr style='border-collapse:collapse'>"+
-     "                      <td align='left' style='padding:0;Margin:0'><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'>trouvez ci-dessous votre code de réinitialisation &nbsp;&nbsp;:&nbsp;</p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#ff8c00;font-size:14px'>Code : <strong>" + code +" </strong></p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:red;font-size:14px'><strong> Ce code expire dans 15mn </strong></p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'><br></p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'>"+
+     "                      <td align='left' style='padding:0;Margin:0'><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'>trouvez ci-dessous votre code de réinitialisation &nbsp;&nbsp;:&nbsp;</p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#ff8c00;font-size:20px'>Code : <strong>" + code +" </strong></p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:red;font-size:14px'><strong> Ce code expire dans 1mn </strong></p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'><br></p><p style='Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#666666;font-size:14px'>"+
      "                      </tr>"+
      "                   </table></td>"+
      "                 </tr>"+
