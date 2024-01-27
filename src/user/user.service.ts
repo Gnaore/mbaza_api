@@ -106,7 +106,9 @@ export class UserService {
         username: user.username,
         useremail: user.email,
         userrole: user.role,
-        userId: user.userId
+        userId: user.userId,
+        userPhoto: user.lienphoto,
+        userQrCode: user.locataireQrcode
       },
     };
   }
@@ -132,7 +134,7 @@ export class UserService {
       step: 60 * 15,
       encoding: 'base32',
     });
-    const url = 'http://localhost:3000/user/reset-pasword-confirmation';
+    const url = '' //'http://localhost:3000/user/reset-pasword-confirmation';
     await this.mailerService.sendResetPasswordConfirmation(
       user.email,
       code,
