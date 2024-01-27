@@ -70,7 +70,7 @@ export class UserService {
     } else if (userData.role == 'LOCATAIRE'){
       await this.mailerService.sendSignupConfirmationLocataire(email, password, locataireQrcode );
     } else {
-      await this.mailerService.sendSignupConfirmation(email, password);
+      await this.mailerService.sendSignupConfirmation(email, password, userData.role);
     }
 
     //Retourner une reponse de succes
