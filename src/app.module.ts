@@ -36,8 +36,7 @@ dotenv.config();
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: ["dist/**/*.entity{.ts,.js}"],
-      synchronize: true,
-      dropSchema:true
+      synchronize: false,
     }),
     
     ConfigModule.forRoot({ isGlobal: true }), //Pour utiliser les variables d'environnement
