@@ -110,7 +110,7 @@ export class LocataireService {
         } = ajoutLocataireDto;
 
         //Creation de la reference
-        const index = locataireNom.substring(0, 2);
+        /*const index = locataireNom.substring(0, 2);
         const codeotp = speakeasy.totp({
             secret: this.configService.get('OTP_CODE'),
             digits: 6,
@@ -119,7 +119,7 @@ export class LocataireService {
 
         const indexCorrige = index.replace(new RegExp(' ', 'g'), 'L')
 
-        const reference = codeotp + indexCorrige;
+        const reference = codeotp + indexCorrige;*/
 
         //Ajout à la base
         const bail = await this.bailleurService.getOne(userId, bailleurId)
@@ -139,7 +139,8 @@ export class LocataireService {
             locatairePhoto,
             locataireQrcode,
             locataireProfession,
-            locataireRef: reference,
+            //locataireRef: reference,
+            locataireRef,
             locataireSalaire,
             locataireSituationmatri,
             locataireTel,
