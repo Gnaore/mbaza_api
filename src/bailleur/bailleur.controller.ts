@@ -16,6 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { AjoutBailleurDto } from './Dto/ajoutBailleurDto';
 import { ModifBailleurDto } from './Dto/modifBailleurDto';
+import { FinContratDto } from './Dto/finContratDto';
 
 @Controller('bailleur')
 export class BailleurController {
@@ -93,13 +94,24 @@ export class BailleurController {
     const userId = request.user['userId'];
     return this.bailleurService.getAllpayementbyBailleur(userId, bailleurId);
   }
-  
+
   @UseGuards(AuthGuard('jwt'))
   @Get('allpayementbyCodeBailleur/:params')
-  allpayementbyCodeBailleur(  
+  allpayementbyCodeBailleur(
     @Req() request: Request,
-    @Param('params') params: string)  {
+    @Param('params') params: string) {
     const userId = request.user['userId'];
     return this.bailleurService.getAllpayementbyCodeBailleur(userId, params);
+  }
+
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('fincontrat')
+  fincontrat(
+    @Req() request: Request,
+    @Body() fincontratDto: FinContratDto,
+  ) {
+    const userId = request.user['userId'];
+    return this.bailleurService.fincontrat(userId, fincontratDto);
   }
 }

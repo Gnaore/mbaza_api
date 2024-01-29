@@ -244,4 +244,10 @@ export class ProprieteService {
     return { data: ret };
   }
 
+
+  async modifstatutfincontrat(proprieteCode: any ) {
+    const ret = await this.proprieteRepository.update({ proprieteCode }, { proprieteStatu: 'Disponible' });
+    return { data: ret };
+  }
+
 }

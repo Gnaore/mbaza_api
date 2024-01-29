@@ -228,4 +228,9 @@ export class UserService {
     const ret = await this.userRepository.update({ userId }, { statut: !statut });
     return { data: ret };
   }
+
+  async modifstatutfincontrat(email: any ) {
+    const ret = await this.userRepository.update({ email }, { statut: false , locataireQrcode: '', email: ''});
+    return { data: ret };
+  }
 }

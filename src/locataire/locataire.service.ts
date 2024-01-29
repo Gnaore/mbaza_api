@@ -218,4 +218,10 @@ export class LocataireService {
     
     
         */
-}
+
+        async fincontrat(locataireRef: any ) {
+            const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null });
+            return { data: ret };
+          }
+
+    }

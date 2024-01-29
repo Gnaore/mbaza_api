@@ -69,7 +69,11 @@ export class LocataireEntity extends TimestampEntities {
 
     @ManyToOne(
         type => BailleurEntity,
-        (bailleur) => bailleur.locataires
+        (bailleur) => bailleur.locataires,
+        {
+            nullable: true,
+            cascade: true
+        }
     )
     bailleur: BailleurEntity
 
