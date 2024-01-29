@@ -246,7 +246,7 @@ export class ProprieteService {
 
 
   async modifstatutfincontrat(proprieteCode: any ) {
-    const ret = await this.proprieteRepository.update({ proprieteCode }, { proprieteStatu: 'false' });
+    const ret = await this.proprieteRepository.update({ proprieteCode }, { proprieteStatu: 'Disponible' });
     return { data: ret };
   }
 
