@@ -61,7 +61,7 @@ export class BailleurService {
           proprietes: true,
           locataires: true
         },
-        where: { bailleurId: bailleurId },
+        where: { bailleurId: bailleurId , wcallbacks: { payment_status: 'succeeded'}},
         order: {
           wcallbacks: {
             when_completed: "DESC"
