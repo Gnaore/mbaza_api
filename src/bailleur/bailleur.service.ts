@@ -56,11 +56,18 @@ export class BailleurService {
   async getAllpayementbyBailleur(userId: number, bailleurId: number) {
     const ret = await this.bailleurRepository.find(
       {
-        relations: { wcallbacks: true, proprietes: true, locataires: true },
+        relations: {
+          wcallbacks: true,
+          proprietes: true,
+          locataires: true
+        },
         where: { bailleurId: bailleurId },
         order: {
-          wcallbacks: "DESC"
-      }
+          wcallbacks: {
+            when_completed: "DESC"
+          }
+        }
+
       });
     return { data: ret };
   }
