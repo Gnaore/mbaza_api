@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LocataireEntity } from './locataire.entity';
 import { BailleurModule } from 'src/bailleur/bailleur.module';
 import { ProprieteModule } from 'src/propriete/propriete.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([LocataireEntity]), BailleurModule, ProprieteModule],
+  imports: [TypeOrmModule.forFeature([LocataireEntity]), BailleurModule, ProprieteModule, UserModule],
   controllers: [LocataireController],
   providers: [LocataireService]
 })

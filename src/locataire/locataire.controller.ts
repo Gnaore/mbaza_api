@@ -14,6 +14,7 @@ import {
 import { Request } from 'express';
 import { LocataireService } from './locataire.service';
 import { AjoutLocataireDto } from './Dto/ajoutLocataireDto';
+import { FinContratDto } from './Dto/finContratDto';
 
 @Controller('locataire')
 export class LocataireController {
@@ -72,5 +73,17 @@ export class LocataireController {
   delete(@Req() request: Request, @Param('id', ParseIntPipe) locataireId: number) {
     const userId = request.user['userId'];
     //return this.locataireService.supone(userId, locataireId);
+  }
+
+
+  
+  @UseGuards(AuthGuard('jwt'))
+  @Post('fincontrat')
+  fincontrat(
+    @Req() request: Request,
+    @Body() fincontratDto: FinContratDto,
+  ) {
+    const userId = request.user['userId'];
+    return this.locataireService.fincontrat(userId, fincontratDto);
   }
 }

@@ -72,7 +72,6 @@ export class LocataireEntity extends TimestampEntities {
         (bailleur) => bailleur.locataires,
         {
             nullable: true,
-            cascade: true
         }
     )
     bailleur: BailleurEntity

@@ -7,7 +7,7 @@ import { BanqueService } from 'src/banque/banque.service';
 import { ModifBailleurDto } from './Dto/modifBailleurDto';
 import { UserService } from 'src/user/user.service';
 import { WcallbackEntity } from 'src/wcallback/wcallback.entity';
-import { FinContratDto } from './Dto/finContratDto';
+import { FinContratDto } from '../locataire/Dto/finContratDto';
 import { ProprieteService } from 'src/propriete/propriete.service';
 import { LocataireService } from 'src/locataire/locataire.service';
 
@@ -16,10 +16,9 @@ export class BailleurService {
   constructor(
     @InjectRepository(BailleurEntity)
     private readonly bailleurRepository: Repository<BailleurEntity>,
+    
     private readonly banqueService: BanqueService,
     private readonly userService: UserService,
-    private readonly proprieteService: ProprieteService,
-    private readonly locataireService: LocataireService
   ) { }
 
   async getAll() {
@@ -247,42 +246,4 @@ export class BailleurService {
   }
 
 
-  async fincontrat(userId: number, finContratDto: FinContratDto) {
-    const {
-      locataireRef,
-      locataireEmail,
-      proprieteCode,
-    } = finContratDto;
-
-    //Modif user
-    const userR = await this.userService.modifstatutfincontrat(locataireEmail)
-    if (userR) {
-      //Modif propriete
-      const propeieteR = await this.proprieteService.modifstatutfincontrat(proprieteCode)
-      if (propeieteR) {
-        const ret = await this.locataireService.fincontrat(locataireRef)
-        return { data: ret };
-      } else {
-        return {
-          data:
-          {
-            success: false,
-            msg: "Impossible de mettre les infos de la propriété à jour"
-          }
-
-        };
-      }
-    } else {
-      return {
-        data:
-        {
-          success: false,
-          msg: "Impossible de mettre les infos de l'utilisateur à jour"
-        }
-
-      };
-    }
-
-
-  }
 }

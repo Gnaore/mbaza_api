@@ -8,6 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BailleurService } from 'src/bailleur/bailleur.service';
 import { ProprieteController } from 'src/propriete/propriete.controller';
 import { ProprieteService } from 'src/propriete/propriete.service';
+import { FinContratDto } from './Dto/finContratDto';
+import { UserService } from 'src/user/user.service';
 
 
 @Injectable()
@@ -18,7 +20,7 @@ export class LocataireService {
         private readonly locataireRepository: Repository<LocataireEntity>,
         private bailleurService: BailleurService,
         private proprieteService: ProprieteService,
-        private readonly configService: ConfigService,
+        private readonly userService: UserService,
     ) { }
 
 
@@ -56,11 +58,11 @@ export class LocataireService {
         });
         return { data: ret };
     }
-    
+
     async getlocatairesbyBailleur(userId: number, bailleurId: number) {
         const ret = await this.locataireRepository.find({
-            relations: { bailleur: true},
-            where: { bailleur: { bailleurId} },
+            relations: { bailleur: true },
+            where: { bailleur: { bailleurId } },
         });
         return { data: ret };
     }
@@ -75,15 +77,17 @@ export class LocataireService {
 
     async getOneByEmail(email: string) {
         const ret = await this.locataireRepository.findOne({
-            relations: { bailleur: true, propriete: {
-                typebien: true
-            } },
+            relations: {
+                bailleur: true, propriete: {
+                    typebien: true
+                }
+            },
             where: { locataireEmail: email },
         });
         return { data: ret };
     }
 
-    
+
 
     async ajouteLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
         const {
@@ -148,9 +152,9 @@ export class LocataireService {
             locataireTypecontrat,
             bailleur: bail.data,
             propriete: prop.data,
-            createdAt:undefined,
-            deletedAt:undefined,
-            updatedAt:undefined
+            createdAt: undefined,
+            deletedAt: undefined,
+            updatedAt: undefined
         }
         const ret = await this.locataireRepository.save(locataireE);
         if (ret) {
@@ -219,9 +223,51 @@ export class LocataireService {
     
         */
 
-        async fincontrat(locataireRef: any ) {
+    /*    async fincontrat(locataireRef: any ) {
             const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null });
             return { data: ret };
-          }
+          }*/
+
+
+    async fincontrat(userId: number, finContratDto: FinContratDto) {
+        const {
+            locataireRef,
+            locataireEmail,
+            proprieteCode,
+        } = finContratDto;
+
+        const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null });
+
+        //Modif user
+        const userR = await this.userService.modifstatutfincontrat(locataireEmail)
+        if (userR) {
+            //Modif propriete
+            const propeieteR = await this.proprieteService.modifstatutfincontrat(proprieteCode)
+            if (propeieteR) {
+
+            } else {
+                return {
+                    data:
+                    {
+                        success: false,
+                        msg: "Impossible de mettre les infos de la propriété à jour"
+                    }
+
+                };
+            }
+        } else {
+            return {
+                data:
+                {
+                    success: false,
+                    msg: "Impossible de mettre les infos de l'utilisateur à jour"
+                }
+
+            };
+        }
+
 
     }
+
+
+}
