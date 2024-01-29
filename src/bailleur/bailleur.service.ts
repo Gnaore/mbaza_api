@@ -57,7 +57,10 @@ export class BailleurService {
     const ret = await this.bailleurRepository.find(
       {
         relations: { wcallbacks: true, proprietes: true, locataires: true },
-        where: { bailleurId: bailleurId }
+        where: { bailleurId: bailleurId },
+        order: {
+          wcallbacks: "DESC"
+      }
       });
     return { data: ret };
   }
