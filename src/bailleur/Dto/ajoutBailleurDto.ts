@@ -24,4 +24,6 @@ export class AjoutBailleurDto {
   readonly bailleurlienCNI: string;
   @IsNotEmpty()
   readonly bailleurLienPhoto: string;
+  readonly bailleurEmailHussier: string;
+  readonly bailleurTelHussier: string;
 }

@@ -40,7 +40,11 @@ export class BailleurEntity extends TimestampEntities {
     bailleurlienCNI: string
     @Column({ length: 65 })
     bailleurLienPhoto: string
-
+    @Column({ length: 65 })
+    bailleurEmailHussier: string
+    @Column({ length: 65 })
+    bailleurTelHussier: string
+    
     @ManyToOne(
         type => BanqueEntity,
         (banque) => banque.bailleurs

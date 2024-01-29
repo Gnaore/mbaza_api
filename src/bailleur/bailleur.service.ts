@@ -30,9 +30,9 @@ export class BailleurService {
       relations: {
         banque: true,
         proprietes: true,
-       /* locataires: {
-          propriete: true
-        }*/
+        /* locataires: {
+           propriete: true
+         }*/
       }
     });
     return { data: ret };
@@ -55,51 +55,51 @@ export class BailleurService {
 
   async getAllpayementbyBailleur(userId: number, bailleurId: number) {
     const ret = await this.bailleurRepository.find(
+      {
+        relations: { wcallbacks: true, proprietes: true, locataires: true },
+        where: { bailleurId: bailleurId }
+      });
+    return { data: ret };
+  }
+
+  async getAllpayementbyCodeBailleur(userId: number, params: string) {
+    let details = params.split(',')
+    let details0 = details[0]
+    let details1 = details[1]
+    let details2 = details[2]
+
+    let bailleurId = parseInt(details0.replace("\"", ""))
+    let datedebut = (details1.replace("\"", ""))  //'2023-11-13 00:00:00'
+    let dateFin = (details2.replace("\"", ""))   //'2024-11-20 23:59:59'
+
+
+
+    const AppDataSource = new DataSource({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      entities: ["dist/**/*.entity{.ts,.js}"],
+    })
+    const appDataSource = await AppDataSource.initialize();
+    const queryRunner = await appDataSource.createQueryRunner();
+    var ret = await queryRunner.manager.query(
+      `SELECT * FROM Wcallback LEFT JOIN Locataire ON Wcallback.locataireRef = Locataire.locataireRef WHERE Wcallback.bailleurBailleurId = ${bailleurId}  AND when_completed BETWEEN "${datedebut}" AND "${dateFin}"`
+    );
+    return { data: ret };
+  }
+  /*
+  async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
+    const ret = await this.bailleurRepository.find(
         {
             relations: {  wcallbacks: true, proprietes: true, locataires: true},
-            where: {bailleurId: bailleurId}
+            where: {bailleurNumero: bailleurCode,
+            }
         });
     return { data: ret };
-}
-
-async getAllpayementbyCodeBailleur(userId: number, params: string) {
-  let details = params.split(',')
-  let details0 = details[0]
-  let details1 = details[1]
-  let details2 = details[2]
-
-  let bailleurId = parseInt(details0.replace("\"","")) 
-  let datedebut = (details1.replace("\"",""))  //'2023-11-13 00:00:00'
-  let dateFin = (details2.replace("\"",""))   //'2024-11-20 23:59:59'
-
-
-
-  const AppDataSource = new DataSource({
-    type: 'mariadb',
-    host: process.env.DB_HOST,
-    port: parseInt(process.env.DB_PORT),
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    entities: ["dist/**/*.entity{.ts,.js}"],
-})
- const appDataSource = await AppDataSource.initialize();
-const queryRunner = await appDataSource.createQueryRunner();
-var ret = await queryRunner.manager.query(
-  `SELECT * FROM Wcallback LEFT JOIN Locataire ON Wcallback.locataireRef = Locataire.locataireRef WHERE Wcallback.bailleurBailleurId = ${bailleurId}  AND when_completed BETWEEN "${datedebut}" AND "${dateFin}"`
-);
-return { data: ret};
-}
-/*
-async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
-  const ret = await this.bailleurRepository.find(
-      {
-          relations: {  wcallbacks: true, proprietes: true, locataires: true},
-          where: {bailleurNumero: bailleurCode,
-          }
-      });
-  return { data: ret };
-}*/
+  }*/
 
   async getOneSimple(userId: number, bailleurId: number) {
     const ret = await this.bailleurRepository.findOne({
@@ -149,6 +149,8 @@ async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
       bailleurRelationUrgence,
       bailleurlienCNI,
       bailleurLienPhoto,
+      bailleurEmailHussier,
+      bailleurTelHussier
     } = modifBailleurDto;
 
     const banqueR = await this.banqueService.getOne(userId, banqueId)
@@ -172,6 +174,8 @@ async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
         bailleurRelationUrgence,
         bailleurlienCNI,
         bailleurLienPhoto,
+        bailleurEmailHussier,
+        bailleurTelHussier
       },
     );
     return { data: ret };
@@ -194,6 +198,8 @@ async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
       bailleurRelationUrgence,
       bailleurlienCNI,
       bailleurLienPhoto,
+      bailleurEmailHussier,
+      bailleurTelHussier
     } = ajoutBailleurDto;
 
     //Ajout à la base
@@ -218,6 +224,8 @@ async getAllpayementbyCodeBailleur(userId: number, bailleurCode: string) {
     bailleurData.bailleurlienCNI = bailleurlienCNI
     bailleurData.bailleurLienPhoto = bailleurLienPhoto
     bailleurData.banque = banqueR.data
+    bailleurData.bailleurEmailHussier = bailleurEmailHussier
+    bailleurData.bailleurTelHussier = bailleurTelHussier
 
     const ret = await this.bailleurRepository.save(bailleurData);
     return { data: ret };
