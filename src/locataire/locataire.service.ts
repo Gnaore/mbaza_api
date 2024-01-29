@@ -236,15 +236,21 @@ export class LocataireService {
             proprieteCode,
         } = finContratDto;
 
-        const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null });
-
         //Modif user
         const userR = await this.userService.modifstatutfincontrat(locataireEmail)
         if (userR) {
             //Modif propriete
             const propeieteR = await this.proprieteService.modifstatutfincontrat(proprieteCode)
             if (propeieteR) {
+                const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null });
+                return {
+                    data:
+                    {
+                        success: true,
+                        msg: ret
+                    }
 
+                };
             } else {
                 return {
                     data:
