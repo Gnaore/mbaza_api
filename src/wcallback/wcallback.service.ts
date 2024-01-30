@@ -106,6 +106,10 @@ export class WcallbackService {
         if (ret && payment_status == "succeeded") {
             const locataire = await this.getOneByReference(ret.locataireRef)
             if (locataire) {
+                console.log("locataire.data.bailleur.bailleurEmail")
+                console.log(locataire.data.bailleur.bailleurEmail)
+                console.log("locataire.data")
+                console.log(locataire.data)
                 await this.mailerService.sendPaiementConfirmation(locataire.data.bailleur.bailleurEmail, amount, ret.locataireRef,ret.loyer_mois, locataire.data.locataireNom);
             }
            
