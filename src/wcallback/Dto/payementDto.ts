@@ -16,9 +16,9 @@ export class PayementDto {
   @IsNotEmpty()
   readonly mois: string;
   @IsNotEmpty()
-  readonly annee: string;
+  readonly loyer_annee: number;
   @IsNotEmpty()
-  readonly nomLocataire: string;
+  readonly nomlocataire: string;
   @IsNotEmpty()
   readonly emailBailleur: string;
 

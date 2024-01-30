@@ -902,7 +902,7 @@ export class MailerService {
   locataireRef: string,
   loyer_mois: string,
   locataireNom: string,
-  loyer_annee: string
+  loyer_annee: number
 ) {
   this.verificnx();
   (await this.transporter()).sendMail({

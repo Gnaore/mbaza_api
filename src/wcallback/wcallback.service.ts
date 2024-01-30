@@ -27,7 +27,7 @@ export class WcallbackService {
     // Dans votre service ou contrôleur
     async payementParTiers(payementDto: PayementDto) {
         const currentAPI = "wave_ci_prod_PA5WLkmrmQFnB4KFiW4MIZNVIN51qM86Lhctic9fGunvsA2ddFpMqXKEnVpMFmTLomFwOeBpWnWmmp2DlTyEYBhCEXhQrtX3ig";
-        const { amount, currency, error_url, success_url, proprieteId, locataireRef, mois, annee, nomLocataire, emailBailleur } = payementDto
+        const { amount, currency, error_url, success_url, proprieteId, locataireRef, mois, loyer_annee, nomlocataire, emailBailleur } = payementDto
         let dataPayement = new PayementWaveDto
         dataPayement = { amount, currency, error_url, success_url }
         try {
@@ -59,8 +59,8 @@ export class WcallbackService {
                     propriete: payPropiete.data,
                     idWaveCallback: "",
                     loyer_mois: mois,
-                    loyer_annee: annee,
-                    nomlocataire: nomLocataire,
+                    loyer_annee: loyer_annee,
+                    nomlocataire: nomlocataire,
                     emailBailleur: emailBailleur,
                     bailleur: payPropiete.data.bailleur
                 }

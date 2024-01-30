@@ -34,7 +34,7 @@ export class WcallbackEntity {
     @Column({ length: 65 })
     loyer_mois: string
     @Column({ length: 65 })
-    loyer_annee: string
+    loyer_annee: number
     @Column({ length: 65 })
     nomlocataire: string
     @Column({ length: 65 })
