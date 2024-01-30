@@ -7,7 +7,8 @@ import { ProprieteService } from 'src/propriete/propriete.service';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PayementWaveDto } from './Dto/payementWaveDto';
-import { BailleurService } from 'src/bailleur/bailleur.service';
+import { MailerService } from 'src/mailer/mailer.service';
+import { LocataireEntity } from 'src/locataire/locataire.entity';
 
 
 @Injectable()
@@ -16,8 +17,10 @@ export class WcallbackService {
     constructor(
         @InjectRepository(WcallbackEntity)
         private wcallbackRepository: Repository<WcallbackEntity>,
-        private bailleurService: BailleurService,
-        private proprieteService: ProprieteService
+        private mailerService: MailerService,
+        private proprieteService: ProprieteService,
+        @InjectRepository(LocataireEntity)
+        private locataireRepository: Repository<LocataireEntity>,
     ) { }
 
 
@@ -92,13 +95,22 @@ export class WcallbackService {
             when_expires
         } = callbackDto.data
 
-        const ret = await this.wcallbackRepository.update({ idWave: id }, {
+        var ret: any 
+        ret = await this.wcallbackRepository.update({ idWave: id }, {
             checkout_status,
             payment_status,
             when_completed,
             idWaveCallback: callbackDto.id
         })
 
+        if (ret && payment_status == "succeeded") {
+            const locataire = await this.getOneByReference(ret.locataireRef)
+            if (locataire) {
+                await this.mailerService.sendPaiementConfirmation(locataire.data.bailleur.bailleurEmail, amount, ret.locataireRef,ret.loyer_mois, locataire.data.locataireNom);
+            }
+           
+        }
+       
         return { data: ret }
 
     }
@@ -111,4 +123,12 @@ export class WcallbackService {
         return { data: ret };
     }
 
+
+   async getOneByReference(ref: string) {
+        const ret = await this.locataireRepository.findOne({
+            relations: { bailleur: true, propriete: true },
+            where: { locataireRef: ref },
+        });
+        return { data: ret };
+    }
 }
