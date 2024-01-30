@@ -27,7 +27,7 @@ export class WcallbackService {
     // Dans votre service ou contrôleur
     async payementParTiers(payementDto: PayementDto) {
         const currentAPI = "wave_ci_prod_PA5WLkmrmQFnB4KFiW4MIZNVIN51qM86Lhctic9fGunvsA2ddFpMqXKEnVpMFmTLomFwOeBpWnWmmp2DlTyEYBhCEXhQrtX3ig";
-        const { amount, currency, error_url, success_url, proprieteId, locataireRef, mois } = payementDto
+        const { amount, currency, error_url, success_url, proprieteId, locataireRef, mois, annee, nomLocataire, emailBailleur } = payementDto
         let dataPayement = new PayementWaveDto
         dataPayement = { amount, currency, error_url, success_url }
         try {
@@ -59,6 +59,9 @@ export class WcallbackService {
                     propriete: payPropiete.data,
                     idWaveCallback: "",
                     loyer_mois: mois,
+                    loyer_annee: annee,
+                    nomlocataire: nomLocataire,
+                    emailBailleur: emailBailleur,
                     bailleur: payPropiete.data.bailleur
                 }
 
@@ -103,18 +106,14 @@ export class WcallbackService {
             idWaveCallback: callbackDto.id
         })
 
-        if (ret && payment_status == "succeeded") {
-            const locataire = await this.getOneByReference(ret.locataireRef)
-            if (locataire) {
-                console.log("locataireRef")
-                console.log(ret)
-                console.log("locataire.data")
-                console.log(locataire.data)
-                console.log("locataire.data.locataireRef")
-                console.log(locataire.data.locataireRef)
-                await this.mailerService.sendPaiementConfirmation(locataire.data.bailleur.bailleurEmail, amount, ret.locataireRef,ret.loyer_mois, locataire.data.locataireNom);
-            }
-           
+        
+
+        if (ret.affected=='1' && payment_status == "succeeded") {
+            const callback = await this.wcallbackRepository.findOne({where: {idWave: id}})
+                console.log("callback")
+                console.log(callback)
+                await this.mailerService.sendPaiementConfirmation(callback.emailBailleur, amount, callback.locataireRef,callback.loyer_mois, callback.nomlocataire, callback.loyer_annee);
+    
         }
        
         return { data: ret }

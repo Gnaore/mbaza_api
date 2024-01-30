@@ -33,6 +33,12 @@ export class WcallbackEntity {
     locataireRef: string
     @Column({ length: 65 })
     loyer_mois: string
+    @Column({ length: 65 })
+    loyer_annee: string
+    @Column({ length: 65 })
+    nomlocataire: string
+    @Column({ length: 65 })
+    emailBailleur: string
 
     @ManyToOne(
         type => ProprieteEntity,

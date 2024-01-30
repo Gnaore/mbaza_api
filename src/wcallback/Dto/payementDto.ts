@@ -15,4 +15,11 @@ export class PayementDto {
   readonly locataireRef: string;
   @IsNotEmpty()
   readonly mois: string;
+  @IsNotEmpty()
+  readonly annee: string;
+  @IsNotEmpty()
+  readonly nomLocataire: string;
+  @IsNotEmpty()
+  readonly emailBailleur: string;
+
 }
