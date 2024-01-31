@@ -167,7 +167,7 @@ export class MailerService {
      "                  <td valign='top' align='center' style='padding:0;Margin:0;width:520px'>"+
      "                   <table width='100%' cellspacing='0' cellpadding='0' role='presentation' style='mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px'>"+
      "                     <tr style='border-collapse:collapse'>"+
-     "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAZA</h1></td>"+
+     "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAAZA</h1></td>"+
      "                     </tr>"+
      "                     <tr style='border-collapse:collapse'>"+
      "                      <td align='left' style='padding:0;Margin:0;padding-top:5px;padding-bottom:20px;font-size:0'>"+
@@ -377,7 +377,7 @@ export class MailerService {
        "                  <td valign='top' align='center' style='padding:0;Margin:0;width:520px'>"+
        "                   <table width='100%' cellspacing='0' cellpadding='0' role='presentation' style='mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px'>"+
        "                     <tr style='border-collapse:collapse'>"+
-       "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAZA</h1></td>"+
+       "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAAZA</h1></td>"+
        "                     </tr>"+
        "                     <tr style='border-collapse:collapse'>"+
        "                      <td align='left' style='padding:0;Margin:0;padding-top:5px;padding-bottom:20px;font-size:0'>"+
@@ -590,7 +590,7 @@ export class MailerService {
        "                  <td valign='top' align='center' style='padding:0;Margin:0;width:520px'>"+
        "                   <table width='100%' cellspacing='0' cellpadding='0' role='presentation' style='mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px'>"+
        "                     <tr style='border-collapse:collapse'>"+
-       "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAZA</h1></td>"+
+       "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAAZA</h1></td>"+
        "                     </tr>"+
        "                     <tr style='border-collapse:collapse'>"+
        "                      <td align='left' style='padding:0;Margin:0;padding-top:5px;padding-bottom:20px;font-size:0'>"+
@@ -806,7 +806,7 @@ export class MailerService {
      "                  <td valign='top' align='center' style='padding:0;Margin:0;width:520px'>"+
      "                   <table width='100%' cellspacing='0' cellpadding='0' role='presentation' style='mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px'>"+
      "                     <tr style='border-collapse:collapse'>"+
-     "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAZA</h1></td>"+
+     "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAAZA</h1></td>"+
      "                     </tr>"+
      "                     <tr style='border-collapse:collapse'>"+
      "                      <td align='left' style='padding:0;Margin:0;padding-top:5px;padding-bottom:20px;font-size:0'>"+
@@ -1025,7 +1025,7 @@ export class MailerService {
    "                  <td valign='top' align='center' style='padding:0;Margin:0;width:520px'>"+
    "                   <table width='100%' cellspacing='0' cellpadding='0' role='presentation' style='mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px'>"+
    "                     <tr style='border-collapse:collapse'>"+
-   "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAZA</h1></td>"+
+   "                      <td align='left' style='padding:0;Margin:0'><h1 style='Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333'>Bienvenue chez MBAAZA</h1></td>"+
    "                     </tr>"+
    "                     <tr style='border-collapse:collapse'>"+
    "                      <td align='left' style='padding:0;Margin:0;padding-top:5px;padding-bottom:20px;font-size:0'>"+
