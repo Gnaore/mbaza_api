@@ -27,13 +27,11 @@ export class LocataireEntity extends TimestampEntities {
     @IsNotEmpty()
     @Column({ length: 65 })
     locataireTel: string
-    @IsNotEmpty()
-    @Column({ length: 225 })
+    @Column({ length: 225 , nullable: true})
     locataireEmail: string
     @IsNotEmpty()
     @Column()
     locataireSituationmatri: string
-
     @Column({ default: 0 })
     locataireNbrecharge: number
     @Column({ length: 65 })

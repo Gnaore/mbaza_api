@@ -242,7 +242,7 @@ export class LocataireService {
             //Modif propriete
             const propeieteR = await this.proprieteService.modifstatutfincontrat(proprieteCode)
             if (propeieteR) {
-                const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null });
+                const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null , locataireEmail: null});
                 return {
                     data:
                     {
