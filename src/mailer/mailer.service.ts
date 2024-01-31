@@ -39,7 +39,7 @@ export class MailerService {
       if (error) {
         console.log("PROBLEME AU NIVEAU DE L'ENVOI " + error);
       } else {
-        console.log('Server is ready to take our messages');
+        console.log('Message envoyé');
       }
     });
   }
