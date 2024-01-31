@@ -20,6 +20,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MsgModule } from './msg/msg.module';
 import { DataSource } from 'typeorm';
+import { MoisModule } from './mois/mois.module';
+import { ProvisionModule } from './provision/provision.module';
 
 dotenv.config();
 
@@ -56,6 +58,8 @@ dotenv.config();
     LocataireModule,
     UserModule,
     MsgModule,
+    MoisModule,
+    ProvisionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

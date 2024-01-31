@@ -4,6 +4,7 @@ import { BailleurEntity } from "src/bailleur/bailleur.entity";
 import { TimestampEntities } from "src/generics/timestampEmtities";
 import { MsgEntity } from "src/msg/msg.entity";
 import { ProprieteEntity } from "src/propriete/propriete.entity";
+import { ProvisionEntity } from "src/provision/provision.entity";
 import { Column, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Locataire')
@@ -27,7 +28,7 @@ export class LocataireEntity extends TimestampEntities {
     @IsNotEmpty()
     @Column({ length: 65 })
     locataireTel: string
-    @Column({ length: 225 , nullable: true})
+    @Column({ length: 225, nullable: true })
     locataireEmail: string
     @IsNotEmpty()
     @Column()
@@ -74,6 +75,9 @@ export class LocataireEntity extends TimestampEntities {
     )
     bailleur: BailleurEntity
 
-
+    @OneToMany(
+        type => ProvisionEntity,
+        (provision) => provision.locataire)
+        provisions: ProvisionEntity[];
 
 }

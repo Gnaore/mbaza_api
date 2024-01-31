@@ -10,6 +10,7 @@ import { ProprieteController } from 'src/propriete/propriete.controller';
 import { ProprieteService } from 'src/propriete/propriete.service';
 import { FinContratDto } from './Dto/finContratDto';
 import { UserService } from 'src/user/user.service';
+import { ProvisionService } from 'src/provision/provision.service';
 
 
 @Injectable()
@@ -21,6 +22,7 @@ export class LocataireService {
         private bailleurService: BailleurService,
         private proprieteService: ProprieteService,
         private readonly userService: UserService,
+        private readonly provisionService: ProvisionService
     ) { }
 
 
@@ -110,7 +112,8 @@ export class LocataireService {
             locataireTypecontrat,
             bailleurId,
             proprieteCode,
-            locataireQrcode
+            locataireQrcode,
+            provisions
         } = ajoutLocataireDto;
 
         //Creation de la reference
@@ -143,7 +146,6 @@ export class LocataireService {
             locatairePhoto,
             locataireQrcode,
             locataireProfession,
-            //locataireRef: reference,
             locataireRef,
             locataireSalaire,
             locataireSituationmatri,
@@ -152,6 +154,7 @@ export class LocataireService {
             locataireTypecontrat,
             bailleur: bail.data,
             propriete: prop.data,
+            provisions: undefined,
             createdAt: undefined,
             deletedAt: undefined,
             updatedAt: undefined
@@ -159,6 +162,7 @@ export class LocataireService {
         const ret = await this.locataireRepository.save(locataireE);
         if (ret) {
             const proploe = this.proprieteService.modifiProprieteloue(proprieteCode)
+            const prov = this.provisionService.save(userId, provisions)
         }
         return { data: ret };
     }

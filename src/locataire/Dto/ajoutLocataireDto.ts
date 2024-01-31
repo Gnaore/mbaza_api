@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { ProvisionDto } from 'src/provision/Dto/provisionDto';
 export class AjoutLocataireDto {
   readonly locataireId: number;
   readonly locataireRef: string;
@@ -29,5 +30,6 @@ export class AjoutLocataireDto {
   readonly locataireEmailgarant: string;
   readonly locatairePhoto: string;
   readonly locataireQrcode: string;
+  readonly provisions: ProvisionDto[]
 
 }
