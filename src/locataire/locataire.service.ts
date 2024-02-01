@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import * as speakeasy from 'speakeasy';
-import { ConfigService } from '@nestjs/config';
 import { AjoutLocataireDto } from './Dto/ajoutLocataireDto';
 import { Repository } from 'typeorm';
 import { LocataireEntity } from './locataire.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BailleurService } from 'src/bailleur/bailleur.service';
-import { ProprieteController } from 'src/propriete/propriete.controller';
 import { ProprieteService } from 'src/propriete/propriete.service';
 import { FinContratDto } from './Dto/finContratDto';
 import { UserService } from 'src/user/user.service';
@@ -22,7 +19,7 @@ export class LocataireService {
         private bailleurService: BailleurService,
         private proprieteService: ProprieteService,
         private readonly userService: UserService,
-        private readonly provisionService: ProvisionService
+        private provisionService: ProvisionService
     ) { }
 
 
@@ -162,10 +159,19 @@ export class LocataireService {
         const ret = await this.locataireRepository.save(locataireE);
         if (ret) {
             const proploe = this.proprieteService.modifiProprieteloue(proprieteCode)
-            const prov = this.provisionService.save(userId, provisions, locataireRef)
+            const prov = this.provisionService.save(userId, provisions, ret)
         }
         return { data: ret };
     }
+
+
+
+
+
+
+
+
+
     /*
         async modifiLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
             const {

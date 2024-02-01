@@ -9,6 +9,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { ProvisionDto } from './Dto/provisionDto';
 import { ProvisionService } from './provision.service';
+import { LocataireEntity } from 'src/locataire/locataire.entity';
 
 
 @Controller('provision')
@@ -21,10 +22,10 @@ export class ProvisionController {
   payementParTiers(
     @Req() request: Request,
     @Body() provisionDto: ProvisionDto[],
-    @Body() locataireRef: string,
+    @Body() locataire: LocataireEntity,
   ) {
     const userId = request.user['userId'];
-    return this.provisionService.save(userId, provisionDto, locataireRef );
+    return this.provisionService.save(userId, provisionDto, locataire );
   }
 
 
