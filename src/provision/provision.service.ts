@@ -16,9 +16,11 @@ export class ProvisionService {
 
 
     async save(userId: any, provisionDto: ProvisionDto[]) {
+        console.log("SAVE SAVE SAVE SAVE SAVE");
         console.log(provisionDto);
         
         provisionDto.forEach(async oneprovisionDto => {
+            console.log("SAVE1 SAVE1 SAVE1 SAVE1 SAVE1");
             console.log(oneprovisionDto);
             
             const { mois, annee, status, idWave, locataireRef } = oneprovisionDto
