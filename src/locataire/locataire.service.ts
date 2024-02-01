@@ -162,7 +162,7 @@ export class LocataireService {
         const ret = await this.locataireRepository.save(locataireE);
         if (ret) {
             const proploe = this.proprieteService.modifiProprieteloue(proprieteCode)
-            const prov = this.provisionService.save(userId, provisions)
+            const prov = this.provisionService.save(userId, provisions, locataireRef)
         }
         return { data: ret };
     }

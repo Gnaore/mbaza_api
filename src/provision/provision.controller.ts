@@ -21,9 +21,10 @@ export class ProvisionController {
   payementParTiers(
     @Req() request: Request,
     @Body() provisionDto: ProvisionDto[],
+    @Body() locataireRef: string,
   ) {
     const userId = request.user['userId'];
-    return this.provisionService.save(userId, provisionDto);
+    return this.provisionService.save(userId, provisionDto, locataireRef );
   }
 
 
