@@ -15,7 +15,13 @@ export class ProvisionEntity {
     status: boolean
     @Column()
     idWave: string
-
+    @Column()
+    idWaveCallback: string
+    @Column()
+    amount: string
+    @Column({ nullable: true})
+    when_completed: Date
+    
    @ManyToOne(
     type =>LocataireEntity, 
     (locataire) => locataire.provisions)

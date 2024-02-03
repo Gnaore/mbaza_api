@@ -74,6 +74,19 @@ export class LocataireService {
         return { data: ret };
     }
 
+    async getProvision(locataireRef: string) {
+        const ret = await this.locataireRepository.findOne({
+            where: { locataireRef: locataireRef },
+        });
+        if (ret) {
+            return await this.provisionService.getProvisionByRefLocataire(ret.locataireId);
+        } else {
+            return {data: "Impossible de retrouver les infos du Locataire"}
+        }
+        
+    }
+
+
     async getOneByEmail(email: string) {
         const ret = await this.locataireRepository.findOne({
             relations: {

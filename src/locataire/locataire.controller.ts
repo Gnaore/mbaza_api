@@ -75,7 +75,12 @@ export class LocataireController {
     //return this.locataireService.supone(userId, locataireId);
   }
 
-
+  @UseGuards(AuthGuard('jwt'))
+  @Get('provision/:ref')
+  getProvision(@Req() request: Request, @Param('ref') locataireRef: string) {
+    const userId = request.user['userId'];
+    return this.locataireService.getProvision(locataireRef);
+  }
   
   @UseGuards(AuthGuard('jwt'))
   @Post('fincontrat')
