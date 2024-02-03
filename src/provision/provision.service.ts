@@ -17,7 +17,7 @@ export class ProvisionService {
     async save(userId: any, provisionDto: ProvisionDto[], locataire: LocataireEntity) {
 
         provisionDto.forEach(async oneprovisionDto => {
-            const { mois, annee, status, idWave, locataireRef, idWaveCallback, amount, when_completed } = oneprovisionDto
+            const { mois, annee, status, idWave, locataireRef, idWaveCallback, amount, when_completed, nummois } = oneprovisionDto
 
             const body = {
                 mois: mois,
@@ -27,7 +27,8 @@ export class ProvisionService {
                 locataire: locataire,
                 idWaveCallback: idWaveCallback,
                 amount: amount,
-                when_completed: when_completed
+                when_completed: when_completed,
+                nummois: nummois
             }
             const ret = await this.provisionRepository.save(body)
         });
@@ -38,7 +39,7 @@ export class ProvisionService {
         const ret = await this.provisionRepository.find({
             relations: { locataire: {} },
             where: { locataire: { locataireId } },
-            order: { id: "ASC"}
+            order: { nummois: "ASC"}
         })
         return { data: ret }
     }

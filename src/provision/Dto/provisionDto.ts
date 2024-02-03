@@ -12,4 +12,5 @@ export class ProvisionDto {
   readonly idWaveCallback: string;
   readonly amount: string;
   readonly when_completed: Date;
+  readonly nummois: number
 }

@@ -11,6 +11,8 @@ export class ProvisionEntity {
     @PrimaryColumn()
     @Column()
     annee: number
+    @Column()
+    nummois: number
     @Column({default: false})
     status: boolean
     @Column()
