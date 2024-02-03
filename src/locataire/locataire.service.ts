@@ -180,13 +180,6 @@ export class LocataireService {
     }
 
 
-
-
-
-
-
-
-
     /*
         async modifiLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
             const {

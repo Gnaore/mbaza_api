@@ -7,9 +7,10 @@ import { WcallbackEntity } from './wcallback.entity';
 import { BailleurModule } from 'src/bailleur/bailleur.module';
 import { MailerModule } from 'src/mailer/mailer.module';
 import { LocataireEntity } from 'src/locataire/locataire.entity';
+import { ProvisionEntity } from 'src/provision/provision.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([WcallbackEntity]),TypeOrmModule.forFeature([LocataireEntity]), ProprieteModule, BailleurModule, MailerModule],
+  imports:[TypeOrmModule.forFeature([WcallbackEntity]),TypeOrmModule.forFeature([LocataireEntity]),TypeOrmModule.forFeature([ProvisionEntity]), ProprieteModule, BailleurModule, MailerModule],
   controllers: [WcallbackController],
   providers: [WcallbackService]
 })

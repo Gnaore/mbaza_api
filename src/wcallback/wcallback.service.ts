@@ -9,6 +9,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PayementWaveDto } from './Dto/payementWaveDto';
 import { MailerService } from 'src/mailer/mailer.service';
 import { LocataireEntity } from 'src/locataire/locataire.entity';
+import { ProprieteEntity } from 'src/propriete/propriete.entity';
+import { ProvisionEntity } from 'src/provision/provision.entity';
+import { ProvisionDto } from 'src/provision/Dto/provisionDto';
 
 
 @Injectable()
@@ -21,6 +24,8 @@ export class WcallbackService {
         private proprieteService: ProprieteService,
         @InjectRepository(LocataireEntity)
         private locataireRepository: Repository<LocataireEntity>,
+        @InjectRepository(ProvisionEntity)
+        private provisionRepository: Repository<ProvisionEntity>,
     ) { }
 
 
@@ -80,6 +85,7 @@ export class WcallbackService {
 
 
     async retourPayement(callbackDto: CallbackDto) {
+        var vamount = "";
         const {
             type,
             data,
@@ -98,7 +104,7 @@ export class WcallbackService {
             when_expires
         } = callbackDto.data
 
-        var ret: any 
+        var ret: any
         ret = await this.wcallbackRepository.update({ idWave: id }, {
             checkout_status,
             payment_status,
@@ -106,16 +112,30 @@ export class WcallbackService {
             idWaveCallback: callbackDto.id
         })
 
-        
+        vamount = amount;
 
-        if (ret.affected=='1' && payment_status == "succeeded") {
-            const callback = await this.wcallbackRepository.findOne({where: {idWave: id}})
-                console.log("callback")
-                console.log(callback)
-                await this.mailerService.sendPaiementConfirmation(callback.emailBailleur, amount, callback.locataireRef,callback.loyer_mois, callback.nomlocataire, callback.loyer_annee);
-    
+        if (ret.affected == '1' && payment_status == "succeeded") {
+            const callback = await this.wcallbackRepository.findOne({ where: { idWave: id } })
+            await this.mailerService.sendPaiementConfirmation(callback.emailBailleur, vamount, callback.locataireRef, callback.loyer_mois, callback.nomlocataire, callback.loyer_annee);
+
+            const locataire = await this.getOneByReference(callback.locataireRef)
+            var provisionDTO = new ProvisionDto
+            provisionDTO = {
+                mois: callback.loyer_mois,
+                annee: callback.loyer_annee,
+                status: true,
+                idWave: callback.idWave,
+                locataireRef: callback.locataireRef,
+                idWaveCallback: callback.idWaveCallback, 
+                amount: callback.amount, 
+                when_completed: callback.when_completed,
+                nummois: 0
+            }
+           
+            await this.updateProvision(provisionDTO, locataire.data.locataireId)
+
         }
-       
+
         return { data: ret }
 
     }
@@ -123,17 +143,32 @@ export class WcallbackService {
     async getAllpayement() {
         const ret = await this.wcallbackRepository.find(
             {
-                relations: {  bailleur: true, propriete: true},
+                relations: { bailleur: true, propriete: true },
             });
         return { data: ret };
     }
 
+    async updateProvision(provisionDto: ProvisionDto, locataireId: number) {
+        const { mois, annee, status, idWave, locataireRef, idWaveCallback, amount, when_completed, nummois } = provisionDto
+        // const provision = await this.provisionRepository.findOne({where: {mois: mois, annee:annee}})
+        const ret = await this.provisionRepository.update({ mois: mois, annee: annee, locataire: { locataireId } }, {
+            status,
+            idWave,
+            idWaveCallback,
+            amount,
+            when_completed,
 
-   async getOneByReference(ref: string) {
+        })
+    }
+
+
+    async getOneByReference(ref: string) {
         const ret = await this.locataireRepository.findOne({
             relations: { bailleur: true, propriete: true },
             where: { locataireRef: ref },
         });
         return { data: ret };
     }
+
+
 }
