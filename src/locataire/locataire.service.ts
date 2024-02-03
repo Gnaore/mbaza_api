@@ -110,7 +110,8 @@ export class LocataireService {
             bailleurId,
             proprieteCode,
             locataireQrcode,
-            provisions
+            provisions,
+            locataireCaution
         } = ajoutLocataireDto;
 
         //Creation de la reference
@@ -149,6 +150,7 @@ export class LocataireService {
             locataireTel,
             locataireTelgarant,
             locataireTypecontrat,
+            locataireCaution,
             bailleur: bail.data,
             propriete: prop.data,
             provisions: undefined,

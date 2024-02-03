@@ -30,6 +30,7 @@ export class AjoutLocataireDto {
   readonly locataireEmailgarant: string;
   readonly locatairePhoto: string;
   readonly locataireQrcode: string;
-  readonly provisions: ProvisionDto[]
+  readonly provisions: ProvisionDto[];
+  readonly locataireCaution: number
 
 }

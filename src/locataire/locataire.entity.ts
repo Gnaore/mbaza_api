@@ -54,7 +54,9 @@ export class LocataireEntity extends TimestampEntities {
     @IsNotEmpty()
     @Column()
     locataireQrcode: string
-
+    @IsNotEmpty()
+    @Column()
+    locataireCaution: number
 
     @OneToOne(
         type => ProprieteEntity,
