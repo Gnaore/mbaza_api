@@ -36,8 +36,10 @@ export class ProvisionService {
 
     async getProvisionByRefLocataire(locataireId: number) {
         const ret = await this.provisionRepository.find({
-            relations: {  locataire: { }},
-            where: { locataire: {locataireId}}} )
+            relations: { locataire: {} },
+            where: { locataire: { locataireId } },
+            order: { id: "ASC"}
+        })
         return { data: ret }
     }
 
