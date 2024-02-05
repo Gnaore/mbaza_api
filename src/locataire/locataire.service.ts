@@ -81,9 +81,9 @@ export class LocataireService {
         if (ret) {
             return await this.provisionService.getProvisionByRefLocataire(ret.locataireId);
         } else {
-            return {data: "Impossible de retrouver les infos du Locataire"}
+            return { data: "Impossible de retrouver les infos du Locataire" }
         }
-        
+
     }
 
 
@@ -180,66 +180,64 @@ export class LocataireService {
     }
 
 
-    /*
-        async modifiLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
-            const {
-                locataireId,
-                locataireBanque,
-                locataireDatenais,
-                locataireEmail,
-                locataireEmailgarant,
-                locataireNationalite,
-                locataireNbrecharge,
-                locataireNom,
-                locataireNomgarant,
-                locatairePhoto,
-                locataireProfession,
-                locataireRef,
-                locataireSalaire,
-                locataireSituationmatri,
-                locataireTel,
-                locataireTelgarant,
-                locataireTypecontrat,
-                bailleurId,
-                proprieteCode
-            } = ajoutLocataireDto;
-            const ret = await this.prismaService.locataire.update({
-                where: { locataireId },
-                data: {
-                    locataireBanque,
-                    locataireDatenais,
-                    locataireEmail,
-                    locataireEmailgarant,
-                    locataireNationalite,
-                    locataireNbrecharge,
-                    locataireNom,
-                    locataireNomgarant,
-                    locatairePhoto,
-                    locataireProfession,
-                    locataireRef,
-                    locataireSalaire,
-                    locataireSituationmatri,
-                    locataireTel,
-                    locataireTelgarant,
-                    locataireTypecontrat,
-                    bailleurId,
-                    proprieteCode
-                },
-            });
-            return { data: ret };
-        }
-    
-        async supone(userId: any, locataireId: number) {
-            const ret = await this.prismaService.locataire.delete({
-                where: { locataireId },
-            });
-            return { data: ret };
-        }
-    
-    
-    
-    
-        */
+
+    async modifiLocataire(userId: number, ajoutLocataireDto: AjoutLocataireDto) {
+        const {
+            locataireId,
+            locataireBanque,
+            locataireDatenais,
+            locataireEmail,
+            locataireEmailgarant,
+            locataireNationalite,
+            locataireNbrecharge,
+            locataireNom,
+            locataireNomgarant,
+            locatairePhoto,
+            locataireProfession,
+            locataireRef,
+            locataireSalaire,
+            locataireSituationmatri,
+            locataireTel,
+            locataireTelgarant,
+            locataireTypecontrat,
+            bailleurId,
+            proprieteCode,
+            locataireCaution
+        } = ajoutLocataireDto;
+        const ret = await this.locataireRepository.update({ locataireRef }, {
+            locataireBanque,
+            locataireDatenais,
+            locataireEmail,
+            locataireEmailgarant,
+            locataireNationalite,
+            locataireNbrecharge,
+            locataireNom,
+            locataireNomgarant,
+            locatairePhoto,
+            locataireProfession,
+            locataireSalaire,
+            locataireSituationmatri,
+            locataireTel,
+            locataireTelgarant,
+            locataireTypecontrat,
+            locataireCaution
+        });
+        return {
+            data:
+            {
+                success: true,
+                msg: ret
+            }
+        };
+    }
+    /* 
+         async supone(userId: any, locataireId: number) {
+             const ret = await this.prismaService.locataire.delete({
+                 where: { locataireId },
+             });
+             return { data: ret };
+         }*/
+
 
     /*    async fincontrat(locataireRef: any ) {
             const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null });
@@ -260,7 +258,7 @@ export class LocataireService {
             //Modif propriete
             const propeieteR = await this.proprieteService.modifstatutfincontrat(proprieteCode)
             if (propeieteR) {
-                const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null , locataireEmail: null});
+                const ret = await this.locataireRepository.update({ locataireRef }, { propriete: null, bailleur: null, locataireEmail: null });
                 return {
                     data:
                     {

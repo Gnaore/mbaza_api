@@ -65,7 +65,7 @@ export class LocataireController {
   @Put('modif')
   modifiLocataire(@Req() request: Request, @Body() ajoutLocataireDto: AjoutLocataireDto) {
     const userId = request.user['userId'];
-    //return this.locataireService.modifiLocataire(userId, ajoutLocataireDto);
+    return this.locataireService.modifiLocataire(userId, ajoutLocataireDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
