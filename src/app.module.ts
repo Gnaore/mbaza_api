@@ -50,7 +50,7 @@ dotenv.config();
     UploadModule, //Pour envoi de mail
     MulterModule.register({ dest: './files' }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '.', '/files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
+      rootPath: join(__dirname, '..', 'files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
      // rootPath: join(__dirname, '..', 'files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
     }),
     ProprieteModule,
