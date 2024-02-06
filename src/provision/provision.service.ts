@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProvisionEntity } from './provision.entity';
 import { LocataireEntity } from 'src/locataire/locataire.entity';
 import { ProvisionDto } from './Dto/provisionDto';
+import { ProvisionRelanceDto } from './Dto/provisionRelanceDto';
 
 
 @Injectable()
@@ -15,9 +16,8 @@ export class ProvisionService {
     ) { }
 
     async save(userId: any, provisionDto: ProvisionDto[], locataire: LocataireEntity) {
-
         provisionDto.forEach(async oneprovisionDto => {
-            const { mois, annee, status, idWave, locataireRef, idWaveCallback, amount, when_completed, nummois } = oneprovisionDto
+            const { mois, annee, status, idWave, locataireRef, idWaveCallback, amount, when_completed, nummois, relance } = oneprovisionDto
 
             const body = {
                 mois: mois,
@@ -28,7 +28,8 @@ export class ProvisionService {
                 idWaveCallback: idWaveCallback,
                 amount: amount,
                 when_completed: when_completed,
-                nummois: nummois
+                nummois: nummois,
+                relance: relance
             }
             const ret = await this.provisionRepository.save(body)
         });
@@ -44,4 +45,11 @@ export class ProvisionService {
         return { data: ret }
     }
 
+    
+    async updateRelance(userId: any, provisionRelanceDto: ProvisionRelanceDto) {
+        const { mois, annee, locataireRef, relance } = provisionRelanceDto
+            const ret = await this.provisionRepository.update({mois , annee, locataire: {locataireRef}}, {relance})
+      return {data: ret}
+
+    }
 }

@@ -23,6 +23,8 @@ export class ProvisionEntity {
     amount: string
     @Column({ nullable: true})
     when_completed: Date
+    @Column({ nullable: true})
+    relance: Date
     
    @ManyToOne(
     type =>LocataireEntity, 

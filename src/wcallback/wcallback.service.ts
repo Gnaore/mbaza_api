@@ -129,7 +129,8 @@ export class WcallbackService {
                 idWaveCallback: callback.idWaveCallback, 
                 amount: callback.amount, 
                 when_completed: callback.when_completed,
-                nummois: 0
+                nummois: 0,
+                relance:null
             }
            
             await this.updateProvision(provisionDTO, locataire.data.locataireId)
