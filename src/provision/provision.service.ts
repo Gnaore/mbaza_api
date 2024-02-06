@@ -40,16 +40,14 @@ export class ProvisionService {
         const ret = await this.provisionRepository.find({
             relations: { locataire: {} },
             where: { locataire: { locataireId } },
-            order: { nummois: "ASC"}
+            order: { nummois: "ASC" }
         })
         return { data: ret }
     }
 
-    
     async updateRelance(userId: any, provisionRelanceDto: ProvisionRelanceDto) {
-        const { mois, annee, locataireRef, relance } = provisionRelanceDto
-            const ret = await this.provisionRepository.update({mois , annee, locataire: {locataireRef}}, {relance})
-      return {data: ret}
-
+        const { mois, annee, locataire, relance } = provisionRelanceDto
+        const ret = await this.provisionRepository.update({ mois, annee, locataire }, { relance })
+        return { data: ret }
     }
 }

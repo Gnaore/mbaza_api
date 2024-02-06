@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { LocataireEntity } from 'src/locataire/locataire.entity';
 
 export class ProvisionRelanceDto {
   @IsNotEmpty()
@@ -6,7 +7,7 @@ export class ProvisionRelanceDto {
   @IsNotEmpty()
   readonly annee: number;
   @IsNotEmpty()
-  readonly locataireRef: string;
+  readonly locataire: LocataireEntity;
   @IsNotEmpty()
   readonly relance: Date;
 }
