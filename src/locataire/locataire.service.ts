@@ -188,6 +188,7 @@ export class LocataireService {
             locataireId,
             locataireBanque,
             locataireDatenais,
+            locataireDateentre,
             locataireEmail,
             locataireEmailgarant,
             locataireNationalite,
@@ -209,6 +210,7 @@ export class LocataireService {
         const ret = await this.locataireRepository.update({ locataireRef }, {
             locataireBanque,
             locataireDatenais,
+            locataireDateentre,
             locataireEmail,
             locataireEmailgarant,
             locataireNationalite,
