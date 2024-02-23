@@ -23,6 +23,9 @@ export class LocataireEntity extends TimestampEntities {
     @Column()
     locataireDatenais: Date
     @IsNotEmpty()
+    @Column()
+    locataireDateentre: Date
+    @IsNotEmpty()
     @Column({ length: 65 })
     locataireNationalite: string
     @IsNotEmpty()

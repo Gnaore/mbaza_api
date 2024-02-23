@@ -8,6 +8,8 @@ export class AjoutLocataireDto {
   @IsNotEmpty()
   readonly locataireDatenais: Date;
   @IsNotEmpty()
+  readonly locataireDateentre: Date;
+  @IsNotEmpty()
   readonly locataireNationalite: string;
   @IsNotEmpty()
   readonly locataireTel: string;
