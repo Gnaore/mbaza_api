@@ -14,6 +14,7 @@ import { ResetPasswordConfirmationDto } from './Dto/resetPasswordConfirmationDto
 import { ModifUserDto } from './Dto/modifUserDto';
 import { ModifStatutUserDto } from './Dto/modifStatutUserDto';
 import { DeleteAccountDto } from './Dto/deleteAccountDto';
+import { HttpStatusCode } from 'axios';
 var bcrypt = require('bcryptjs');
 
 @Injectable()
@@ -28,8 +29,13 @@ export class UserService {
     private jwtService: JwtService) { }
 
   async getAllUsers() {
-    const ret = await this.userRepository.find();
-    return { data: ret }
+    try {
+      const ret = await this.userRepository.find();
+      return { data: ret }
+    } catch (error) {
+      return { data: error }
+    }
+
   }
 
   async signup(signupDto: SignupDto) {
@@ -40,7 +46,7 @@ export class UserService {
       numbers: true,
     });
     // locataireRef = nomQrcode   locataireRef ici contient le nom de l'image du qrcode du locataire
-    const { email, username, contact, paysId, role, lienphoto, bailleurId, locataireQrcode  } = signupDto;
+    const { email, username, contact, paysId, role, lienphoto, bailleurId, locataireQrcode } = signupDto;
 
     //Vérifier si l'utilisateur est dejà inscrit
     const user = await this.userRepository.findOne({ where: { email } });
@@ -64,11 +70,11 @@ export class UserService {
 
     await this.userRepository.save(userData);
     //Envoyer un email de confirmation
-    
-    if (userData.role == 'BAILLEUR'){
+
+    if (userData.role == 'BAILLEUR') {
       await this.mailerService.sendSignupConfirmationBailleur(email, password);
-    } else if (userData.role == 'LOCATAIRE'){
-      await this.mailerService.sendSignupConfirmationLocataire(email, password, locataireQrcode );
+    } else if (userData.role == 'LOCATAIRE') {
+      await this.mailerService.sendSignupConfirmationLocataire(email, password, locataireQrcode);
     } else {
       await this.mailerService.sendSignupConfirmation(email, password, userData.role);
     }
@@ -77,40 +83,88 @@ export class UserService {
     return { data: 'Utilisateur créé avec succès' };
   }
 
+  async testmail() {
+    await this.mailerService.verificnx();
+  }
+
   async signin(signinDto: SigninDto) {
-    // ** Vérifi si l'utulisateur existe
-    const { email, password } = signinDto;
-    const user = await this.userRepository.findOne({ where: { email } });
-    if (!user) throw new NotFoundException("L'utilisateur n'existe pas");
-    // ** Comparaison du mot de passe
-    const pass = await bcrypt.compare(password, user.password);
-    if (pass == false)
-      throw new UnauthorizedException("Le mot de passe n'est pas correct");
-    // ** verifi si user est desactivé
-    if (user.statut == false)
-      throw new UnauthorizedException(
-        "Votre compte a été désactivé, contactez l'administrateur",
-      );
-    // ** delivre le jeton
-    const payload = {
-      sub: user.userId,
-      email: user.email,
-    };
-    const token = await this.jwtService.sign(payload, {
-      expiresIn: '12h',
-      secret: this.configService.get('SECRET_KEY'),
-    });
-    return {
-      token,
-      user: {
-        username: user.username,
-        useremail: user.email,
-        userrole: user.role,
-        userId: user.userId,
-        userPhoto: user.lienphoto,
-        userQrCode: user.locataireQrcode
-      },
-    };
+    try {
+      // ** Vérifi si l'utulisateur existe
+      const { email, password } = signinDto;
+      const user = await this.userRepository.findOne({ where: { email } });
+      if (!user) {
+        return {
+          data: {
+            succes: false,
+            statuscode: 401,
+            message: 'Login ou mot de passe incorect',
+            data: UnauthorizedException
+          }
+      }
+    }
+      // ** Comparaison du mot de passe
+      const pass = await bcrypt.compare(password, user.password);
+      if (pass == false){
+        return {
+          data: {
+            succes: false,
+            statuscode: 401,
+            message: 'Login ou mot de passe incorect',
+            data: UnauthorizedException
+          }
+      }
+      }
+      // ** verifi si user est desactivé
+      if (user.statut == false) {
+        return {
+          data: {
+            succes: false,
+            statuscode: 401,
+            message: 'Votre compte a été désactivé, contactez l\'administrateur',
+            data: UnauthorizedException
+          }
+      }
+      }
+      // ** delivre le jeton
+      const payload = {
+        sub: user.userId,
+        email: user.email,
+      };
+      const token = await this.jwtService.sign(payload, {
+        expiresIn: '12h',
+        secret: this.configService.get('SECRET_KEY'),
+      });
+      return {
+        data: {
+          succes: true,
+          statuscode: 200,
+          message: 'Utilisateur connecté',
+          data: {
+            token: token,
+            user: {
+              username: user.username,
+              useremail: user.email,
+              userrole: user.role,
+              userId: user.userId,
+              userPhoto: user.lienphoto,
+              userQrCode: user.locataireQrcode
+            },
+          }
+        }
+
+
+      };
+    } catch (error) {
+      return {
+        data: {
+          succes: false,
+          statuscode: 500,
+          message: 'Erreur retournée, consultez data.data',
+          data: error
+        }
+      }
+    }
+
   }
 
   async resetPasswordDemand(resetPasswordDemandDto: ResetPasswordDemandDto) {
@@ -229,8 +283,8 @@ export class UserService {
     return { data: ret };
   }
 
-  async modifstatutfincontrat(email: any ) {
-    const ret = await this.userRepository.update({ email }, { statut: false , locataireQrcode: '', email: ''});
+  async modifstatutfincontrat(email: any) {
+    const ret = await this.userRepository.update({ email }, { statut: false, locataireQrcode: '', email: '' });
     return { data: ret };
   }
 }

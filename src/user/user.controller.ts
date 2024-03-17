@@ -18,6 +18,13 @@ export class UserController {
     getAllUsers() {
       return  this.userService.getAllUsers();
     }
+
+    @Get('testmail')
+    testmail() {
+      return  this.userService.testmail();
+    }
+
+
     
     @Post('signup')
     signup(@Body() signupDto: SignupDto) {

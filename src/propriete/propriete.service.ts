@@ -99,9 +99,14 @@ export class ProprieteService {
   }
 
   async supone(userId: any, proprieteId: number) {
-    const propeieteRem = await this.proprieteRepository.findOne({where:{proprieteId}})
-    const ret = await this.proprieteRepository.remove(propeieteRem);
-    return { data: ret };
+    try {
+      const propeieteRem = await this.proprieteRepository.findOne({where:{proprieteId}})
+      const ret = await this.proprieteRepository.remove(propeieteRem);
+      return { data: ret };
+    } catch (error) {
+      return { data: error };
+    }
+   
   }
 
   async modifiPropriete(userId: number, modifProprieteDto: ModifProprieteDto) {

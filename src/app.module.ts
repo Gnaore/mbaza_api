@@ -22,6 +22,7 @@ import { MsgModule } from './msg/msg.module';
 import { DataSource } from 'typeorm';
 import { MoisModule } from './mois/mois.module';
 import { ProvisionModule } from './provision/provision.module';
+import { SmsModule } from './sms/sms.module';
 
 dotenv.config();
 
@@ -38,7 +39,10 @@ dotenv.config();
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: ["dist/**/*.entity{.ts,.js}"],
-      synchronize: true,
+      synchronize: false,
+      //en production
+      //entities: ["./**/*.entity{.ts,.js}"],
+      //synchronize: true,
     }),
     
     ConfigModule.forRoot({ isGlobal: true }), //Pour utiliser les variables d'environnement
@@ -61,6 +65,7 @@ dotenv.config();
     MsgModule,
     MoisModule,
     ProvisionModule,
+    SmsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

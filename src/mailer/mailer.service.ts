@@ -19,19 +19,35 @@ export class MailerService {
     });
     return transport;
   }*/
-    //Methode pour configurer le transporter
+ /*   //Methode pour configurer le transporter
     private async transporter() {
       const transport = nodemailer.createTransport({
         host: "smtp.office365.com",
         port: 587,
         secure: false, //tls
         auth: {
-          user: "mbazaservice@outlook.com",
+          user: "info@mbaaza.com",
           pass: "Xpr!2kIP",
         },
       });
       return transport;
     }
+    */
+
+     //Methode pour configurer le transporter
+     private async transporter() {
+      const transport = nodemailer.createTransport({
+        host: "mail.mbaaza.com",
+        port: 465,
+        secure: true, //tls
+        auth: {
+          user: "info@mbaaza.com",
+          pass: "z;TZ~j}OBy",
+        },
+      });
+      return transport;
+    }
+
 
   // Pour debuguer le transporter
   async verificnx() {
@@ -48,7 +64,7 @@ export class MailerService {
   async sendSignupConfirmation(userEmail: string, password: string, roleuser: string) {
     this.verificnx();
     (await this.transporter()).sendMail({
-      from: "mbazaservice@outlook.com",
+      from: "info@mbaaza.com",
       to: userEmail,
       subject: "Ouverture de compte M'baaza User",
       html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
@@ -256,9 +272,10 @@ export class MailerService {
 
     //Envoi du mail de confirmation d'inscription
     async sendSignupConfirmationBailleur(userEmail: string, password: string) {
+
       this.verificnx();
       (await this.transporter()).sendMail({
-        from: "mbazaservice@outlook.com",
+        from: "info@mbaaza.com",
         to: userEmail,
         subject: "Ouverture de compte M'baaza Bailleur",
         html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
@@ -471,7 +488,7 @@ export class MailerService {
       const lien =  AppService.urlg + locataireQrcode;
        
       (await this.transporter()).sendMail({
-        from: "mbazaservice@outlook.com",
+        from: "info@mbaaza.com",
         to: userEmail,
         subject: "Ouverture de compte M'baaza Locataire",
         html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
@@ -687,7 +704,7 @@ export class MailerService {
   ) {
     this.verificnx();
     (await this.transporter()).sendMail({
-      from: 'mbazaservice@outlook.com',
+      from: 'info@mbaaza.com',
       to: userEmail,
       subject: 'Demande de réinitialisation de mot de passe',
       html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
@@ -906,7 +923,7 @@ export class MailerService {
 ) {
   this.verificnx();
   (await this.transporter()).sendMail({
-    from: 'mbazaservice@outlook.com',
+    from: 'info@mbaaza.com',
     to: bailleurEmail,
     subject: 'Payement de loyer',
     html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>"+
