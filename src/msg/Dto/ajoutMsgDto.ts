@@ -7,6 +7,6 @@ export class AjoutMsgDto {
   @IsNotEmpty()
   readonly expediteurId: number;
   @IsNotEmpty()
-  readonly destinataireId: number;
+  readonly destinataireId: number[];
   readonly msgLienpj: string;
 }

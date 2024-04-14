@@ -19,12 +19,11 @@ import { Request } from 'express';
 
 @Controller('wcallback')
 export class WcallbackController {
-  constructor(private wcallbackService: WcallbackService) { }
- 
+  constructor(private wcallbackService: WcallbackService) {}
 
   @Get()
   getall() {
-    return "Le lien de retour";
+    return 'Le lien de retour';
   }
 
   @Post('callback')
@@ -33,22 +32,26 @@ export class WcallbackController {
   }
 
   @Post('payementtiers')
-  payementParTiers(
-    @Body() payementDto: PayementDto,
-  ) {
+  payementParTiers(@Body() payementDto: PayementDto) {
     return this.wcallbackService.payementParTiers(payementDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('allPayement')
-  getAllpayement(
-    @Req() request: Request,
-  ) {
+  getAllpayement(@Req() request: Request) {
     const userId = request.user['userId'];
     return this.wcallbackService.getAllpayement();
   }
-  
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get('locataireref/:ref')
+  getAllpayementParLocataire(
+    @Param('ref') ref: string,
+    @Req() request: Request,
+  ) {
+    const userId = request.user['userId'];
+    return this.wcallbackService.getAllpayementParLocataire(userId, ref);
+  }
 }
 
 

@@ -4,5 +4,4 @@ export class LuMsgDto {
   readonly msgId: number;
   @IsNotEmpty()
   msgLu: boolean;
-
 }
