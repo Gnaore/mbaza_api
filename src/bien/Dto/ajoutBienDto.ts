@@ -27,4 +27,5 @@ export class AjoutBienDto {
   readonly bienImage: string;
   @IsNotEmpty()
   readonly typebienId: number;
+  readonly bienOqp: boolean;
 }

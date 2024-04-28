@@ -33,6 +33,7 @@ export class BienService {
       bienSurface,
       bienVille,
       typebienId,
+      bienOqp,
     } = ajoutBienDto;
 
     //Creation de la reference
@@ -63,6 +64,7 @@ export class BienService {
       bienVille,
       typebien: typebienRec.data,
       bienReference: reference,
+      bienOqp
     });
     return { data: ret };
   }
@@ -84,9 +86,11 @@ export class BienService {
       bienSurface,
       bienVille,
       typebienId,
+      bienOqp
     } = ajoutBienDto;
     const typebienRec = await this.typebienService.getOne(userId, typebienId)
-    const ret = await this.bienRepository.update({ bienId },
+    const ret = await this.bienRepository.update(
+      { bienId },
       {
         bienAdresse,
         bienCategorie,
@@ -102,6 +106,7 @@ export class BienService {
         bienSurface,
         bienVille,
         typebien: typebienRec.data,
+        bienOqp
       },
     );
     return { data: ret };
