@@ -23,14 +23,12 @@ import { DataSource } from 'typeorm';
 import { MoisModule } from './mois/mois.module';
 import { ProvisionModule } from './provision/provision.module';
 import { SmsModule } from './sms/sms.module';
+import { DemandeModule } from './demande/demande.module';
 
 dotenv.config();
 
-
-
 @Module({
   imports: [
-    
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -38,13 +36,14 @@ dotenv.config();
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: ["dist/**/*.entity{.ts,.js}"],
-      synchronize: false,
-      //en production
-      //entities: ["./**/*.entity{.ts,.js}"],
+      //en dev
+      //entities: ['dist/**/*.entity{.ts,.js}'],
       //synchronize: true,
+      //en production
+      entities: ['./**/*.entity{.ts,.js}'],
+      synchronize: false,
     }),
-    
+
     ConfigModule.forRoot({ isGlobal: true }), //Pour utiliser les variables d'environnement
     BanqueModule,
     MailerModule,
@@ -55,7 +54,7 @@ dotenv.config();
     MulterModule.register({ dest: './files' }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
-     // rootPath: join(__dirname, '..', 'files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
+      // rootPath: join(__dirname, '..', 'files'), // Chemin vers le répertoire des fichiers statiques (images, etc.)
     }),
     ProprieteModule,
     BienModule,
@@ -66,6 +65,7 @@ dotenv.config();
     MoisModule,
     ProvisionModule,
     SmsModule,
+    DemandeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
