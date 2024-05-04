@@ -12,7 +12,10 @@ import { LocataireEntity } from 'src/locataire/locataire.entity';
 import { ProprieteEntity } from 'src/propriete/propriete.entity';
 import { ProvisionEntity } from 'src/provision/provision.entity';
 import { ProvisionDto } from 'src/provision/Dto/provisionDto';
-
+import { SmsService } from 'src/sms/sms.service';
+import { LocataireService } from 'src/locataire/locataire.service';
+import { BailleurService } from 'src/bailleur/bailleur.service';
+import { format } from 'date-fns';
 
 @Injectable()
 export class WcallbackService {
@@ -20,6 +23,7 @@ export class WcallbackService {
     @InjectRepository(WcallbackEntity)
     private wcallbackRepository: Repository<WcallbackEntity>,
     private mailerService: MailerService,
+    private smsService: SmsService,
     private proprieteService: ProprieteService,
     @InjectRepository(LocataireEntity)
     private locataireRepository: Repository<LocataireEntity>,
@@ -93,6 +97,12 @@ export class WcallbackService {
     }
   }
 
+  formatDate(): string {
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, 'yyyy-MM-dd HH:mm:ss');
+    return formattedDate || '';
+  }
+
   async retourPayement(callbackDto: CallbackDto) {
     var vamount = '';
     const { type, data } = callbackDto;
@@ -152,6 +162,17 @@ export class WcallbackService {
       };
 
       await this.updateProvision(provisionDTO, locataire.data.locataireId);
+
+      let text = `Votre réçu \n Cher Locataire, le paiement de votre loyer a été effectué avec succes. \n Ref. paiement : ${callback.idWave} \n Montant :  ${callback.amount} \n Mois : ${callback.loyer_mois}\n Année: ${callback.loyer_annee}\n Votre quittance de loyer est disponible sur la plateform, Mbaaza vous remercie de votre fidélité`;
+      var boby = {
+        sender: 'MBAAZA',
+        to: locataire.data.locataireTel,
+        text: text,
+        url: 'mbaaza.com',
+        type: 'unicode',
+        datetime: this.formatDate(),
+      };
+      await this.smsService.envoiSms(boby);
     }
 
     return { data: ret };
@@ -171,7 +192,6 @@ export class WcallbackService {
     });
     return { data: ret };
   }
-
 
   async updateProvision(provisionDto: ProvisionDto, locataireId: number) {
     const {

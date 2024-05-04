@@ -8,10 +8,18 @@ import { BailleurModule } from 'src/bailleur/bailleur.module';
 import { MailerModule } from 'src/mailer/mailer.module';
 import { LocataireEntity } from 'src/locataire/locataire.entity';
 import { ProvisionEntity } from 'src/provision/provision.entity';
+import { SmsService } from 'src/sms/sms.service';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([WcallbackEntity]),TypeOrmModule.forFeature([LocataireEntity]),TypeOrmModule.forFeature([ProvisionEntity]), ProprieteModule, BailleurModule, MailerModule],
+  imports: [
+    TypeOrmModule.forFeature([WcallbackEntity]),
+    TypeOrmModule.forFeature([LocataireEntity]),
+    TypeOrmModule.forFeature([ProvisionEntity]),
+    ProprieteModule,
+    BailleurModule,
+    MailerModule,
+  ],
   controllers: [WcallbackController],
-  providers: [WcallbackService]
+  providers: [WcallbackService, SmsService],
 })
 export class WcallbackModule {}
