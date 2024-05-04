@@ -137,42 +137,46 @@ export class WcallbackService {
       const callback = await this.wcallbackRepository.findOne({
         where: { idWave: id },
       });
-      await this.mailerService.sendPaiementConfirmation(
-        callback.emailBailleur,
-        vamount,
-        callback.locataireRef,
-        callback.loyer_mois,
-        callback.nomlocataire,
-        callback.loyer_annee,
-      );
 
-      const locataire = await this.getOneByReference(callback.locataireRef);
-      var provisionDTO = new ProvisionDto();
-      provisionDTO = {
-        mois: callback.loyer_mois,
-        annee: callback.loyer_annee,
-        status: true,
-        idWave: callback.idWave,
-        locataireRef: callback.locataireRef,
-        idWaveCallback: callback.idWaveCallback,
-        amount: callback.amount,
-        when_completed: callback.when_completed,
-        nummois: 0,
-        relance: null,
-      };
+      if (callback) {
+        await this.mailerService.sendPaiementConfirmation(
+          callback.emailBailleur,
+          vamount,
+          callback.locataireRef,
+          callback.loyer_mois,
+          callback.nomlocataire,
+          callback.loyer_annee,
+        );
 
-      await this.updateProvision(provisionDTO, locataire.data.locataireId);
+        const locataire = await this.getOneByReference(callback.locataireRef);
+        var provisionDTO = new ProvisionDto();
+        provisionDTO = {
+          mois: callback.loyer_mois,
+          annee: callback.loyer_annee,
+          status: true,
+          idWave: callback.idWave,
+          locataireRef: callback.locataireRef,
+          idWaveCallback: callback.idWaveCallback,
+          amount: callback.amount,
+          when_completed: callback.when_completed,
+          nummois: 0,
+          relance: null,
+        };
+        if (locataire) {
+          await this.updateProvision(provisionDTO, locataire.data.locataireId);
 
-      let text = `Votre réçu \n Cher Locataire, le paiement de votre loyer a été effectué avec succes. \n Ref. paiement : ${callback.idWave} \n Montant :  ${callback.amount} \n Mois : ${callback.loyer_mois}\n Année: ${callback.loyer_annee}\n Votre quittance de loyer est disponible sur la plateform, Mbaaza vous remercie de votre fidélité`;
-      var boby = {
-        sender: 'MBAAZA',
-        to: locataire.data.locataireTel,
-        text: text,
-        url: 'mbaaza.com',
-        type: 'unicode',
-        datetime: this.formatDate(),
-      };
-      await this.smsService.envoiSms(boby);
+          let text = `Votre réçu \n Cher Locataire, le paiement de votre loyer a été effectué avec succes. \n Ref. paiement : ${callback.idWave} \n Montant :  ${callback.amount} \n Mois : ${callback.loyer_mois}\n Année: ${callback.loyer_annee}\n Votre quittance de loyer est disponible sur la plateform, Mbaaza vous remercie de votre fidélité`;
+          var boby = {
+            sender: 'MBAAZA',
+            to: locataire.data.locataireTel,
+            text: text,
+            url: 'mbaaza.com',
+            type: 'unicode',
+            datetime: this.formatDate(),
+          };
+          await this.smsService.envoiSms(boby);
+        }
+      }
     }
 
     return { data: ret };
